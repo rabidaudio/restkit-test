@@ -7,15 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A762CD99E75DF8C7610937AF /* Pods_restkit_test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 415AFAF359670F0682390A4E /* Pods_restkit_test.framework */; };
+		CE31ED991C502E3D00FC863D /* Gist.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31ED981C502E3D00FC863D /* Gist.swift */; };
 		CE35D9091C502C8900C2E1AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE35D9081C502C8900C2E1AB /* AppDelegate.swift */; };
 		CE35D90B1C502C8900C2E1AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE35D90A1C502C8900C2E1AB /* ViewController.swift */; };
 		CE35D90E1C502C8900C2E1AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE35D90C1C502C8900C2E1AB /* Main.storyboard */; };
 		CE35D9111C502C8900C2E1AB /* restkit_test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE35D90F1C502C8900C2E1AB /* restkit_test.xcdatamodeld */; };
 		CE35D9131C502C8900C2E1AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE35D9121C502C8900C2E1AB /* Assets.xcassets */; };
 		CE35D9161C502C8900C2E1AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE35D9141C502C8900C2E1AB /* LaunchScreen.storyboard */; };
+		CE6B65551C5078980072E233 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B65541C5078980072E233 /* File.swift */; };
+		CE6B65571C5078BC0072E233 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B65561C5078BC0072E233 /* User.swift */; };
+		CE6B65591C5092BE0072E233 /* ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B65581C5092BE0072E233 /* ObjectMapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		27EAB7858AC88FBEC4582ED6 /* Pods-restkit-test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-restkit-test.release.xcconfig"; path = "Pods/Target Support Files/Pods-restkit-test/Pods-restkit-test.release.xcconfig"; sourceTree = "<group>"; };
+		415AFAF359670F0682390A4E /* Pods_restkit_test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_restkit_test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE31ED981C502E3D00FC863D /* Gist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gist.swift; sourceTree = "<group>"; };
 		CE35D9051C502C8900C2E1AB /* restkit-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "restkit-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE35D9081C502C8900C2E1AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE35D90A1C502C8900C2E1AB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +32,10 @@
 		CE35D9121C502C8900C2E1AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE35D9151C502C8900C2E1AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE35D9171C502C8900C2E1AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE6B65541C5078980072E233 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		CE6B65561C5078BC0072E233 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CE6B65581C5092BE0072E233 /* ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectMapper.swift; sourceTree = "<group>"; };
+		E9FDC6B5C74FD1272F40969D /* Pods-restkit-test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-restkit-test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-restkit-test/Pods-restkit-test.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +43,47 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A762CD99E75DF8C7610937AF /* Pods_restkit_test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		019BEF231E460B24367CF592 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				415AFAF359670F0682390A4E /* Pods_restkit_test.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		43324CC3F56B635E7C7E80A4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E9FDC6B5C74FD1272F40969D /* Pods-restkit-test.debug.xcconfig */,
+				27EAB7858AC88FBEC4582ED6 /* Pods-restkit-test.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		CE31ED971C502E2E00FC863D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE31ED981C502E3D00FC863D /* Gist.swift */,
+				CE6B65541C5078980072E233 /* File.swift */,
+				CE6B65561C5078BC0072E233 /* User.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		CE35D8FC1C502C8900C2E1AB = {
 			isa = PBXGroup;
 			children = (
 				CE35D9071C502C8900C2E1AB /* restkit-test */,
 				CE35D9061C502C8900C2E1AB /* Products */,
+				43324CC3F56B635E7C7E80A4 /* Pods */,
+				019BEF231E460B24367CF592 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,6 +98,7 @@
 		CE35D9071C502C8900C2E1AB /* restkit-test */ = {
 			isa = PBXGroup;
 			children = (
+				CE31ED971C502E2E00FC863D /* Models */,
 				CE35D9081C502C8900C2E1AB /* AppDelegate.swift */,
 				CE35D90A1C502C8900C2E1AB /* ViewController.swift */,
 				CE35D90C1C502C8900C2E1AB /* Main.storyboard */,
@@ -63,6 +106,7 @@
 				CE35D9141C502C8900C2E1AB /* LaunchScreen.storyboard */,
 				CE35D9171C502C8900C2E1AB /* Info.plist */,
 				CE35D90F1C502C8900C2E1AB /* restkit_test.xcdatamodeld */,
+				CE6B65581C5092BE0072E233 /* ObjectMapper.swift */,
 			);
 			path = "restkit-test";
 			sourceTree = "<group>";
@@ -74,9 +118,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CE35D91A1C502C8900C2E1AB /* Build configuration list for PBXNativeTarget "restkit-test" */;
 			buildPhases = (
+				C02E8700A421D885C89FF3AE /* Check Pods Manifest.lock */,
 				CE35D9011C502C8900C2E1AB /* Sources */,
 				CE35D9021C502C8900C2E1AB /* Frameworks */,
 				CE35D9031C502C8900C2E1AB /* Resources */,
+				EF11BD393BC2381645AB80C9 /* Embed Pods Frameworks */,
+				4A0CFF7D588FFEDA5DAA1A9D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -133,11 +180,63 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4A0CFF7D588FFEDA5DAA1A9D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-restkit-test/Pods-restkit-test-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C02E8700A421D885C89FF3AE /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EF11BD393BC2381645AB80C9 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-restkit-test/Pods-restkit-test-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CE35D9011C502C8900C2E1AB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE6B65551C5078980072E233 /* File.swift in Sources */,
+				CE6B65591C5092BE0072E233 /* ObjectMapper.swift in Sources */,
+				CE31ED991C502E3D00FC863D /* Gist.swift in Sources */,
+				CE6B65571C5078BC0072E233 /* User.swift in Sources */,
 				CE35D90B1C502C8900C2E1AB /* ViewController.swift in Sources */,
 				CE35D9111C502C8900C2E1AB /* restkit_test.xcdatamodeld in Sources */,
 				CE35D9091C502C8900C2E1AB /* AppDelegate.swift in Sources */,
@@ -249,9 +348,11 @@
 		};
 		CE35D91B1C502C8900C2E1AB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E9FDC6B5C74FD1272F40969D /* Pods-restkit-test.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "restkit-test/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.fixdapp.dev.restkit-test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -260,9 +361,11 @@
 		};
 		CE35D91C1C502C8900C2E1AB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27EAB7858AC88FBEC4582ED6 /* Pods-restkit-test.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "restkit-test/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.fixdapp.dev.restkit-test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -288,6 +391,7 @@
 				CE35D91C1C502C8900C2E1AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
