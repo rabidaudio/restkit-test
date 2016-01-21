@@ -8,22 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		A762CD99E75DF8C7610937AF /* Pods_restkit_test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 415AFAF359670F0682390A4E /* Pods_restkit_test.framework */; };
-		CE31ED991C502E3D00FC863D /* Gist.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31ED981C502E3D00FC863D /* Gist.swift */; };
 		CE35D9091C502C8900C2E1AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE35D9081C502C8900C2E1AB /* AppDelegate.swift */; };
 		CE35D90B1C502C8900C2E1AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE35D90A1C502C8900C2E1AB /* ViewController.swift */; };
 		CE35D90E1C502C8900C2E1AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE35D90C1C502C8900C2E1AB /* Main.storyboard */; };
 		CE35D9111C502C8900C2E1AB /* restkit_test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE35D90F1C502C8900C2E1AB /* restkit_test.xcdatamodeld */; };
 		CE35D9131C502C8900C2E1AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE35D9121C502C8900C2E1AB /* Assets.xcassets */; };
 		CE35D9161C502C8900C2E1AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE35D9141C502C8900C2E1AB /* LaunchScreen.storyboard */; };
-		CE6B65551C5078980072E233 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B65541C5078980072E233 /* File.swift */; };
-		CE6B65571C5078BC0072E233 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B65561C5078BC0072E233 /* User.swift */; };
 		CE6B65591C5092BE0072E233 /* ObjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B65581C5092BE0072E233 /* ObjectManager.swift */; };
+		CE81979F1C514F0D0010DA32 /* Gist.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8197991C514F0D0010DA32 /* Gist.swift */; };
+		CE8197A11C514F0D0010DA32 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81979B1C514F0D0010DA32 /* User.swift */; };
+		CE8197A31C514F0D0010DA32 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81979D1C514F0D0010DA32 /* File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		27EAB7858AC88FBEC4582ED6 /* Pods-restkit-test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-restkit-test.release.xcconfig"; path = "Pods/Target Support Files/Pods-restkit-test/Pods-restkit-test.release.xcconfig"; sourceTree = "<group>"; };
 		415AFAF359670F0682390A4E /* Pods_restkit_test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_restkit_test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE31ED981C502E3D00FC863D /* Gist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gist.swift; sourceTree = "<group>"; };
 		CE35D9051C502C8900C2E1AB /* restkit-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "restkit-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE35D9081C502C8900C2E1AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE35D90A1C502C8900C2E1AB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -32,9 +31,10 @@
 		CE35D9121C502C8900C2E1AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE35D9151C502C8900C2E1AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE35D9171C502C8900C2E1AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE6B65541C5078980072E233 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		CE6B65561C5078BC0072E233 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CE6B65581C5092BE0072E233 /* ObjectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectManager.swift; sourceTree = "<group>"; };
+		CE8197991C514F0D0010DA32 /* Gist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gist.swift; sourceTree = "<group>"; };
+		CE81979B1C514F0D0010DA32 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CE81979D1C514F0D0010DA32 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		E9FDC6B5C74FD1272F40969D /* Pods-restkit-test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-restkit-test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-restkit-test/Pods-restkit-test.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,9 +70,9 @@
 		CE31ED971C502E2E00FC863D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CE31ED981C502E3D00FC863D /* Gist.swift */,
-				CE6B65541C5078980072E233 /* File.swift */,
-				CE6B65561C5078BC0072E233 /* User.swift */,
+				CE8197991C514F0D0010DA32 /* Gist.swift */,
+				CE81979B1C514F0D0010DA32 /* User.swift */,
+				CE81979D1C514F0D0010DA32 /* File.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -233,11 +233,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE6B65551C5078980072E233 /* File.swift in Sources */,
 				CE6B65591C5092BE0072E233 /* ObjectManager.swift in Sources */,
-				CE31ED991C502E3D00FC863D /* Gist.swift in Sources */,
-				CE6B65571C5078BC0072E233 /* User.swift in Sources */,
 				CE35D90B1C502C8900C2E1AB /* ViewController.swift in Sources */,
+				CE81979F1C514F0D0010DA32 /* Gist.swift in Sources */,
+				CE8197A31C514F0D0010DA32 /* File.swift in Sources */,
+				CE8197A11C514F0D0010DA32 /* User.swift in Sources */,
 				CE35D9111C502C8900C2E1AB /* restkit_test.xcdatamodeld in Sources */,
 				CE35D9091C502C8900C2E1AB /* AppDelegate.swift in Sources */,
 			);

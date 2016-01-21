@@ -2,19 +2,39 @@
 //  User.swift
 //  restkit-test
 //
-//  Created by fixd on 1/20/16.
+//  Created by fixd on 1/21/16.
 //  Copyright © 2016 fixd. All rights reserved.
 //
 
 import Foundation
-import RestKit
+import CoreData
 
-class User : NSManagedObject {
+
+class User: NSManagedObject {
     
-    @NSManaged var avatarUrl: NSURL
-    @NSManaged var gravatarId: String
-    @NSManaged var jsonUrl: NSURL
-    @NSManaged var login: String
-    @NSManaged var userId: Int
-    @NSManaged var gists: [Gist]
+//    static var attributeMappings: [NSObject : AnyObject] = [
+//        "id": "gistId",
+//        "url": "jsonUrl",
+//        "description": "descriptionText",
+//        "public": "isPublic",
+//        "created_at": "createdAt"
+//    ]
+//    
+//    static var idParamName = "userId"
+//    
+//    static var pathPattern = "/gists/public"
+//    
+//    static var name = "User"
+
+}
+
+extension User {
+    
+    @NSManaged var avatarUrl: NSObject?
+    @NSManaged var gravatarId: String?
+    @NSManaged var jsonUrl: NSObject?
+    @NSManaged var login: String?
+    @NSManaged var userId: NSNumber?
+    @NSManaged var gists: NSSet?
+    
 }
