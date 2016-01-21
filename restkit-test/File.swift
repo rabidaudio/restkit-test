@@ -9,7 +9,7 @@
 import Foundation
 import RestKit
 
-class File : NSManagedObject {
+class File : Model {
     
     @NSManaged var filename: String
     @NSManaged var rawUrl: NSURL

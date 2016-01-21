@@ -9,38 +9,45 @@
 import Foundation
 import RestKit
 
-class Gist : NSManagedObject, Mappable, Identifiable {
+class Gist : NSManagedObject, Model {
+    
+//    static var map: [NSObject : AnyObject] = [
+//        "id": "gistId",
+//        "url": "jsonUrl",
+//        "description": "descriptionText",
+//        "public": "isPublic",
+//        "created_at": "createdAt"
+//    ]
+//    static var idParamName: String = "gistId"
+    
+//    static var descriptor = RKResponseDescriptor(mapping: RKEntityMapping(forClass: Gist.self), pathPattern: "/gists/public", keyPath: nil, statusCodes: RKStatusCodeIndexSetForClass(.Successful))
+    
+    static var attributeMappings: [NSObject : AnyObject] = [
+        "id": "gistId",
+        "url": "jsonUrl",
+        "description": "descriptionText",
+        "public": "isPublic",
+        "created_at": "createdAt"
+    ]
+    
+    static var idParamName = "gistId"
+    
+    static var pathPattern = "/gists/public"
+    
+    static var name = "Gist"
+    
     
     @NSManaged var gistId: Int
     @NSManaged var url: NSURL
     @NSManaged var htmlUrl: NSURL
     @NSManaged var descriptionText: String
     @NSManaged var isPublic: Bool
-    @NSManaged var createdAt: NSDate
+    @NSManaged var created At: NSDate
     @NSManaged var updatedAt: NSDate
     @NSManaged var files: [File]
     @NSManaged var user: User
     
     private let formatter = NSDateFormatter()
-    
-//    init(id: Int, url: String, htmlUrl: String, description: String, isPublic: Bool, createdAt: String, updatedAt: String){
-//        self.id = id
-//        self.url = NSURL(string: url)!
-//        self.htmlUrl = NSURL(string: htmlUrl)!
-//        self.descriptionText = description
-//        self.isPublic = isPublic
-//        //formatter.timeZone = NSTimeZone(name: "GMT")
-//        // NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//        //[formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-//        ///[formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
-//        //NSDate *date = [formatter dateFromString:@"2011-01-12T14:17:55.043Z"];
-//        //NSLog(@"Date: %@", date);
-//        //formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z" //2013-02-12T22:58:52Z
-//        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-//        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ" //2013-02-12T22:58:52Z
-//        self.createdAt = formatter.dateFromString(createdAt)!
-//        self.updatedAt = formatter.dateFromString(updatedAt)!
-//    }
     
     func titleText() -> String {
         let size = descriptionText.startIndex.distanceTo(descriptionText.endIndex)
@@ -52,36 +59,5 @@ class Gist : NSManagedObject, Mappable, Identifiable {
         return "by \(user.login) at \(formatter.stringFromDate(createdAt)) (\(files.count) files)"
     }
     
-    static var map: [NSObject : AnyObject] = [
-                "id": "gistId",
-                "url": "jsonUrl",
-                "description": "descriptionText",
-                "public": "isPublic",
-                "created_at": "createdAt"
-            ]
-    static var idParamName: String = "gistId"
-    
-//    static var map: [NSObject : AnyObject] {
-//        return [
-//            "id": "gistId",
-//            "url": "jsonUrl",
-//            "description": "descriptionText",
-//            "public": "isPublic",
-//            "created_at": "createdAt"
-//        ]
-//    }
-    
-//    static func map() -> [NSObject : AnyObject] {
-//        return [
-//            "id": "gistId",
-//            "url": "jsonUrl",
-//            "description": "descriptionText",
-//            "public": "isPublic",
-//            "created_at": "createdAt"
-//        ]
-//    }
-    
-//    static func id() -> String {
-//        return "gistId"
-//    }
+
 }

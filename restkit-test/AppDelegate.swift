@@ -20,49 +20,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         
-//        override init() {
-//            guard let modelURL = NSBundle.mainBundle().URLForResource("restkit_test", withExtension: "momd") else {
-//                fatalError("Error loading")
-//            }
-//            model = NSManagedObjectModel(contentsOfURL: modelURL)!
-//            let psc = NSPersistentStoreCoordinator(managedObjectModel: model)
-//            context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-//            context.persistentStoreCoordinator = psc
-//            //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-//            let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-//            //(.DocumentDirectory, inDomains: .UserDomainMask, appropriateForURL: )
-//            let storeURL = urls[urls.endIndex-1].URLByAppendingPathComponent("DataModel.sqlite")
-//            try! psc.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: nil)
-//            //}
-//        }
-        
-        
-        // Override point for customization after application launch.
-//        let modelURL = NSBundle.mainBundle().URLForResource("restkit_test", withExtension: "momd")
-//        let managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL!)
-        //NSManagedObjectModel.mergedModelFromBundles(nil)
-        let managedObjectStore = RKManagedObjectStore(managedObjectModel: managedObjectModel)
-        managedObjectStore.createPersistentStoreCoordinator()
-        
-        try! managedObjectStore.addInMemoryPersistentStore()
-        managedObjectStore.createManagedObjectContexts()
-        RKManagedObjectStore.setDefaultStore(managedObjectStore)
-        let manager = RKObjectManager(baseURL: NSURL(string: "https://api.github.com"))
-        manager.managedObjectStore = managedObjectStore
-        RKObjectManager.setSharedManager(manager)
-        
-        let mapping = RKEntityMapping(forEntityForName: "Gist", inManagedObjectStore: managedObjectStore)
-        mapping.addAttributeMappingsFromDictionary()
-        mapping.identificationAttributes = ["gistId"]
-        
-        let responseDescriptor = RKResponseDescriptor(mapping: mapping, pathPattern: "/gists/public", keyPath: nil, statusCodes: RKStatusCodeIndexSetForClass(.Successful))
-        manager.addResponseDescriptor(responseDescriptor)
-        
-        let nav = window?.rootViewController as! ViewController
-//        let top = nav.topViewController as! ViewController
-        nav.context = managedObjectStore.mainQueueManagedObjectContext
-//        window?.rootViewController.managedObjectStore.mainQueueManagedObjectContext
-        //context = managedObjectStore.mainQueueManagedObjectContext
+////        override init() {
+////            guard let modelURL = NSBundle.mainBundle().URLForResource("restkit_test", withExtension: "momd") else {
+////                fatalError("Error loading")
+////            }
+////            model = NSManagedObjectModel(contentsOfURL: modelURL)!
+////            let psc = NSPersistentStoreCoordinator(managedObjectModel: model)
+////            context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+////            context.persistentStoreCoordinator = psc
+////            //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+////            let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+////            //(.DocumentDirectory, inDomains: .UserDomainMask, appropriateForURL: )
+////            let storeURL = urls[urls.endIndex-1].URLByAppendingPathComponent("DataModel.sqlite")
+////            try! psc.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: nil)
+////            //}
+////        }
+//        
+//        
+//        // Override point for customization after application launch.
+////        let modelURL = NSBundle.mainBundle().URLForResource("restkit_test", withExtension: "momd")
+////        let managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL!)
+//        //NSManagedObjectModel.mergedModelFromBundles(nil)
+//        let managedObjectStore = RKManagedObjectStore(managedObjectModel: managedObjectModel)
+//        managedObjectStore.createPersistentStoreCoordinator()
+//        
+//        try! managedObjectStore.addInMemoryPersistentStore()
+//        managedObjectStore.createManagedObjectContexts()
+//        RKManagedObjectStore.setDefaultStore(managedObjectStore)
+//        let manager = RKObjectManager(baseURL: NSURL(string: "https://api.github.com"))
+//        manager.managedObjectStore = managedObjectStore
+//        RKObjectManager.setSharedManager(manager)
+//        
+//        let mapping = RKEntityMapping(forEntityForName: "Gist", inManagedObjectStore: managedObjectStore)
+//        mapping.addAttributeMappingsFromDictionary()
+//        mapping.identificationAttributes = ["gistId"]
+//        
+//        let responseDescriptor = RKResponseDescriptor(mapping: mapping, pathPattern: "/gists/public", keyPath: nil, statusCodes: RKStatusCodeIndexSetForClass(.Successful))
+//        manager.addResponseDescriptor(responseDescriptor)
+//        
+//        let nav = window?.rootViewController as! ViewController
+////        let top = nav.topViewController as! ViewController
+//        nav.context = managedObjectStore.mainQueueManagedObjectContext
+////        window?.rootViewController.managedObjectStore.mainQueueManagedObjectContext
+//        //context = managedObjectStore.mainQueueManagedObjectContext
         return true
     }
 
