@@ -9,7 +9,7 @@
 import Foundation
 import RestKit
 
-class Gist : NSManagedObject {
+class Gist : NSManagedObject, Mappable, Identifiable {
     
     @NSManaged var gistId: Int
     @NSManaged var url: NSURL
@@ -51,4 +51,37 @@ class Gist : NSManagedObject {
     func subtitleText() -> String {
         return "by \(user.login) at \(formatter.stringFromDate(createdAt)) (\(files.count) files)"
     }
+    
+    static var map: [NSObject : AnyObject] = [
+                "id": "gistId",
+                "url": "jsonUrl",
+                "description": "descriptionText",
+                "public": "isPublic",
+                "created_at": "createdAt"
+            ]
+    static var idParamName: String = "gistId"
+    
+//    static var map: [NSObject : AnyObject] {
+//        return [
+//            "id": "gistId",
+//            "url": "jsonUrl",
+//            "description": "descriptionText",
+//            "public": "isPublic",
+//            "created_at": "createdAt"
+//        ]
+//    }
+    
+//    static func map() -> [NSObject : AnyObject] {
+//        return [
+//            "id": "gistId",
+//            "url": "jsonUrl",
+//            "description": "descriptionText",
+//            "public": "isPublic",
+//            "created_at": "createdAt"
+//        ]
+//    }
+    
+//    static func id() -> String {
+//        return "gistId"
+//    }
 }

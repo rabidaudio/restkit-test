@@ -52,13 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RKObjectManager.setSharedManager(manager)
         
         let mapping = RKEntityMapping(forEntityForName: "Gist", inManagedObjectStore: managedObjectStore)
-        mapping.addAttributeMappingsFromDictionary([
-            "id": "gistId",
-            "url": "jsonUrl",
-            "description": "descriptionText",
-            "public": "isPublic",
-            "created_at": "createdAt"
-        ])
+        mapping.addAttributeMappingsFromDictionary()
         mapping.identificationAttributes = ["gistId"]
         
         let responseDescriptor = RKResponseDescriptor(mapping: mapping, pathPattern: "/gists/public", keyPath: nil, statusCodes: RKStatusCodeIndexSetForClass(.Successful))

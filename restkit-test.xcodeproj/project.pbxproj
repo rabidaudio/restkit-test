@@ -17,7 +17,7 @@
 		CE35D9161C502C8900C2E1AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE35D9141C502C8900C2E1AB /* LaunchScreen.storyboard */; };
 		CE6B65551C5078980072E233 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B65541C5078980072E233 /* File.swift */; };
 		CE6B65571C5078BC0072E233 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B65561C5078BC0072E233 /* User.swift */; };
-		CE6B65591C5092BE0072E233 /* ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B65581C5092BE0072E233 /* ObjectMapper.swift */; };
+		CE6B65591C5092BE0072E233 /* ObjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B65581C5092BE0072E233 /* ObjectManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +34,7 @@
 		CE35D9171C502C8900C2E1AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE6B65541C5078980072E233 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		CE6B65561C5078BC0072E233 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		CE6B65581C5092BE0072E233 /* ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectMapper.swift; sourceTree = "<group>"; };
+		CE6B65581C5092BE0072E233 /* ObjectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectManager.swift; sourceTree = "<group>"; };
 		E9FDC6B5C74FD1272F40969D /* Pods-restkit-test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-restkit-test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-restkit-test/Pods-restkit-test.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,7 +106,7 @@
 				CE35D9141C502C8900C2E1AB /* LaunchScreen.storyboard */,
 				CE35D9171C502C8900C2E1AB /* Info.plist */,
 				CE35D90F1C502C8900C2E1AB /* restkit_test.xcdatamodeld */,
-				CE6B65581C5092BE0072E233 /* ObjectMapper.swift */,
+				CE6B65581C5092BE0072E233 /* ObjectManager.swift */,
 			);
 			path = "restkit-test";
 			sourceTree = "<group>";
@@ -234,7 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE6B65551C5078980072E233 /* File.swift in Sources */,
-				CE6B65591C5092BE0072E233 /* ObjectMapper.swift in Sources */,
+				CE6B65591C5092BE0072E233 /* ObjectManager.swift in Sources */,
 				CE31ED991C502E3D00FC863D /* Gist.swift in Sources */,
 				CE6B65571C5078BC0072E233 /* User.swift in Sources */,
 				CE35D90B1C502C8900C2E1AB /* ViewController.swift in Sources */,
