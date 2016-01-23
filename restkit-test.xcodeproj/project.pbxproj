@@ -15,9 +15,14 @@
 		CE35D9131C502C8900C2E1AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE35D9121C502C8900C2E1AB /* Assets.xcassets */; };
 		CE35D9161C502C8900C2E1AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE35D9141C502C8900C2E1AB /* LaunchScreen.storyboard */; };
 		CE6B65591C5092BE0072E233 /* ObjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B65581C5092BE0072E233 /* ObjectManager.swift */; };
-		CE81979F1C514F0D0010DA32 /* Gist.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8197991C514F0D0010DA32 /* Gist.swift */; };
-		CE8197A11C514F0D0010DA32 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81979B1C514F0D0010DA32 /* User.swift */; };
-		CE8197A31C514F0D0010DA32 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81979D1C514F0D0010DA32 /* File.swift */; };
+		CEF55DF31C528026008D9F8A /* MakeModelYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF55DE71C528026008D9F8A /* MakeModelYear.swift */; };
+		CEF55DF51C528026008D9F8A /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF55DE91C528026008D9F8A /* Vehicle.swift */; };
+		CEF55DF71C528026008D9F8A /* Mileage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF55DEB1C528026008D9F8A /* Mileage.swift */; };
+		CEF55DF91C528026008D9F8A /* PullEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF55DED1C528026008D9F8A /* PullEvent.swift */; };
+		CEF55DFB1C528026008D9F8A /* Dtc.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF55DEF1C528026008D9F8A /* Dtc.swift */; };
+		CEF55DFD1C528026008D9F8A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF55DF11C528026008D9F8A /* User.swift */; };
+		CEF55DFF1C5280BA008D9F8A /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF55DFE1C5280BA008D9F8A /* Model.swift */; };
+		CEF55E011C52E88F008D9F8A /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF55E001C52E88F008D9F8A /* LoadingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,9 +37,14 @@
 		CE35D9151C502C8900C2E1AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE35D9171C502C8900C2E1AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE6B65581C5092BE0072E233 /* ObjectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectManager.swift; sourceTree = "<group>"; };
-		CE8197991C514F0D0010DA32 /* Gist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gist.swift; sourceTree = "<group>"; };
-		CE81979B1C514F0D0010DA32 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		CE81979D1C514F0D0010DA32 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		CEF55DE71C528026008D9F8A /* MakeModelYear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeModelYear.swift; sourceTree = "<group>"; };
+		CEF55DE91C528026008D9F8A /* Vehicle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
+		CEF55DEB1C528026008D9F8A /* Mileage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mileage.swift; sourceTree = "<group>"; };
+		CEF55DED1C528026008D9F8A /* PullEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullEvent.swift; sourceTree = "<group>"; };
+		CEF55DEF1C528026008D9F8A /* Dtc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dtc.swift; sourceTree = "<group>"; };
+		CEF55DF11C528026008D9F8A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CEF55DFE1C5280BA008D9F8A /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		CEF55E001C52E88F008D9F8A /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		E9FDC6B5C74FD1272F40969D /* Pods-restkit-test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-restkit-test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-restkit-test/Pods-restkit-test.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,9 +80,13 @@
 		CE31ED971C502E2E00FC863D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CE8197991C514F0D0010DA32 /* Gist.swift */,
-				CE81979B1C514F0D0010DA32 /* User.swift */,
-				CE81979D1C514F0D0010DA32 /* File.swift */,
+				CEF55DE71C528026008D9F8A /* MakeModelYear.swift */,
+				CEF55DE91C528026008D9F8A /* Vehicle.swift */,
+				CEF55DEB1C528026008D9F8A /* Mileage.swift */,
+				CEF55DED1C528026008D9F8A /* PullEvent.swift */,
+				CEF55DEF1C528026008D9F8A /* Dtc.swift */,
+				CEF55DF11C528026008D9F8A /* User.swift */,
+				CEF55DFE1C5280BA008D9F8A /* Model.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -107,6 +121,7 @@
 				CE35D9171C502C8900C2E1AB /* Info.plist */,
 				CE35D90F1C502C8900C2E1AB /* restkit_test.xcdatamodeld */,
 				CE6B65581C5092BE0072E233 /* ObjectManager.swift */,
+				CEF55E001C52E88F008D9F8A /* LoadingViewController.swift */,
 			);
 			path = "restkit-test";
 			sourceTree = "<group>";
@@ -233,13 +248,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEF55DF51C528026008D9F8A /* Vehicle.swift in Sources */,
+				CEF55DFB1C528026008D9F8A /* Dtc.swift in Sources */,
 				CE6B65591C5092BE0072E233 /* ObjectManager.swift in Sources */,
+				CEF55DFD1C528026008D9F8A /* User.swift in Sources */,
 				CE35D90B1C502C8900C2E1AB /* ViewController.swift in Sources */,
-				CE81979F1C514F0D0010DA32 /* Gist.swift in Sources */,
-				CE8197A31C514F0D0010DA32 /* File.swift in Sources */,
-				CE8197A11C514F0D0010DA32 /* User.swift in Sources */,
 				CE35D9111C502C8900C2E1AB /* restkit_test.xcdatamodeld in Sources */,
+				CEF55DF31C528026008D9F8A /* MakeModelYear.swift in Sources */,
+				CEF55DF71C528026008D9F8A /* Mileage.swift in Sources */,
+				CEF55DFF1C5280BA008D9F8A /* Model.swift in Sources */,
 				CE35D9091C502C8900C2E1AB /* AppDelegate.swift in Sources */,
+				CEF55DF91C528026008D9F8A /* PullEvent.swift in Sources */,
+				CEF55E011C52E88F008D9F8A /* LoadingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

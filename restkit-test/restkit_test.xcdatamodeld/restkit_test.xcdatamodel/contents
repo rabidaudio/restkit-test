@@ -1,33 +1,72 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="14F1605" minimumToolsVersion="Automatic">
-    <entity name="File" representedClassName=".File" syncable="YES">
-        <attribute name="filename" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="rawUrl" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="size" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="gist" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Gist" inverseName="files" inverseEntity="Gist" syncable="YES"/>
-    </entity>
-    <entity name="Gist" representedClassName=".Gist" syncable="YES">
+    <entity name="BaseEntity" isAbstract="YES" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="descriptionText" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="gistId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="htmlUrl" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="isPublic" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="jsonUrl" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="files" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="File" inverseName="gist" inverseEntity="File" syncable="YES"/>
-        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="gists" inverseEntity="User" syncable="YES"/>
     </entity>
-    <entity name="User" representedClassName=".User" syncable="YES">
-        <attribute name="avatarUrl" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="gravatarId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="jsonUrl" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="login" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="userId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="gists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Gist" inverseName="user" inverseEntity="Gist" syncable="YES"/>
+    <entity name="Dtc" representedClassName=".Dtc" parentEntity="BaseEntity" syncable="YES">
+        <attribute name="additionalDetails" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="consequences" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="extremeCase" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="manufacturer" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="reserved" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="shortName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="threatLevel" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="pulls" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PullEvent" inverseName="dtcs" inverseEntity="PullEvent" syncable="YES"/>
+    </entity>
+    <entity name="MakeModelYear" representedClassName=".MakeModelYear" parentEntity="BaseEntity" syncable="YES">
+        <attribute name="bodyType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="edmundsId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="make" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="model" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="vehicles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Vehicle" inverseName="makeModelYear" inverseEntity="Vehicle" syncable="YES"/>
+    </entity>
+    <entity name="Mileage" representedClassName=".Mileage" parentEntity="BaseEntity" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="source" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="mileages" inverseEntity="User" syncable="YES"/>
+        <relationship name="vehicle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Vehicle" inverseName="mileages" inverseEntity="Vehicle" syncable="YES"/>
+    </entity>
+    <entity name="PullEvent" representedClassName=".PullEvent" parentEntity="BaseEntity" syncable="YES">
+        <attribute name="background" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="celOn" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="obdProtocol" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pullTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="dtcs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Dtc" inverseName="pulls" inverseEntity="Dtc" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="pulls" inverseEntity="User" syncable="YES"/>
+        <relationship name="vehicle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Vehicle" inverseName="pulls" inverseEntity="Vehicle" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName=".User" parentEntity="BaseEntity" syncable="YES">
+        <attribute name="authToken" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="mileages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Mileage" inverseName="user" inverseEntity="Mileage" syncable="YES"/>
+        <relationship name="pulls" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PullEvent" inverseName="user" inverseEntity="PullEvent" syncable="YES"/>
+        <relationship name="vehicles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Vehicle" inverseName="users" inverseEntity="Vehicle" syncable="YES"/>
+    </entity>
+    <entity name="Vehicle" representedClassName=".Vehicle" parentEntity="BaseEntity" syncable="YES">
+        <attribute name="userSubmitted" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="vin" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="makeModelYear" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MakeModelYear" inverseName="vehicles" inverseEntity="MakeModelYear" syncable="YES"/>
+        <relationship name="mileages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Mileage" inverseName="vehicle" inverseEntity="Mileage" syncable="YES"/>
+        <relationship name="pulls" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PullEvent" inverseName="vehicle" inverseEntity="PullEvent" syncable="YES"/>
+        <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="vehicles" inverseEntity="User" syncable="YES"/>
     </entity>
     <elements>
-        <element name="File" positionX="-65" positionY="-189" width="128" height="103"/>
-        <element name="Gist" positionX="126" positionY="-243" width="128" height="178"/>
-        <element name="User" positionX="331" positionY="-288" width="128" height="133"/>
+        <element name="BaseEntity" positionX="-164" positionY="-630" width="128" height="75"/>
+        <element name="Dtc" positionX="306" positionY="-36" width="128" height="178"/>
+        <element name="MakeModelYear" positionX="-155" positionY="-342" width="128" height="148"/>
+        <element name="Mileage" positionX="-522" positionY="18" width="128" height="133"/>
+        <element name="PullEvent" positionX="99" positionY="12" width="128" height="163"/>
+        <element name="User" positionX="-18" positionY="-183" width="128" height="163"/>
+        <element name="Vehicle" positionX="-317" positionY="-153" width="128" height="133"/>
     </elements>
 </model>
