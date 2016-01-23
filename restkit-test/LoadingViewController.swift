@@ -28,8 +28,20 @@ class LoadingViewController: UIViewController {
     
     func loadVehicles() {
         let manager = RKObjectManager.sharedManager()
-        print("response descriptors", manager.responseDescriptors.count, manager.responseDescriptors)
+        
+        
+//        print("response descriptors", manager.responseDescriptors.count, manager.responseDescriptors)
+//        for rd in manager.responseDescriptors {
+//            for p in ["/vehicles", "/vehicles?user_email=julian%40fixdapp.com", "/vehicles/4T1BG22K1YU653452", "/users", "/users/7", "/make_model_years", "/make_model_years/14"] {
+//                let url = "http://localhost:3000/api/v2"+p
+//                if rd.matchesURL(NSURL(string: url)){
+//                    print(p, rd.pathPattern)
+//                }
+//            }
+//        }
+        
         manager.getObjectsAtPath("vehicles", parameters: ["user_email": "julian@fixdapp.com"], success: gotVehicles, failure: failedGetVehicles)
+//        manager.getObject(nil, path: "vehicles/4T1BG22K1YU653452", parameters: nil, success: gotVehicles, failure: failedGetVehicles)
     }
     
     func gotVehicles(operation: RKObjectRequestOperation!, result: RKMappingResult!) {

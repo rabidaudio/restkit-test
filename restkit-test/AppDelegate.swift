@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         RKLogConfigureFromEnvironment()
         
-        let objectManager = RKObjectManager(baseURL: NSURL(string: "https://fixd.herokuapp.com/api/v2/"))
+        let objectManager = RKObjectManager(baseURL: NSURL(string: "http://localhost:3000/api/v2/"))
         
 //        let modelURL = NSBundle.mainBundle().URLForResource("restkit_test", withExtension: "momd")!
         // create managedObjectModel instance from CoreData
@@ -60,13 +60,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AFNetworkActivityIndicatorManager.sharedManager().enabled = true
         
         objectManager.HTTPClient.setDefaultHeader("X-User-Email", value: "julian@fixdapp.com")
-        objectManager.HTTPClient.setDefaultHeader("X-User-Token", value: "kvaa2sh21zuBABFZrdw1")
+        objectManager.HTTPClient.setDefaultHeader("X-User-Token", value: "ENx1hTdcyThG-uUHh1oa")
         
+        objectManager.requestSerializationMIMEType = RKMIMETypeJSON
         
         for model in models {
             // todo figure out model.pathPattern
-            let descriptor = RKResponseDescriptor(mapping: model.entityMapping, method: .Any, pathPattern: model.pathPattern, keyPath: "data", statusCodes: RKStatusCodeIndexSetForClass(.Successful))
-            objectManager.addResponseDescriptor(descriptor)
+            for pattern in model.pathPatterns {
+                let descriptor = RKResponseDescriptor(mapping: model.entityMapping, method: .Any, pathPattern: pattern, keyPath: "data", statusCodes: RKStatusCodeIndexSetForClass(.Successful))
+                objectManager.addResponseDescriptor(descriptor)
+            }
         }
         
 //        let context = managedObjectStore.mainQueueManagedObjectContext

@@ -13,7 +13,7 @@ import RestKit
 class User: NSManagedObject, Model {
 
     
-    static var pathPattern = "/users"
+    static var pathPatterns = ["users", "users/:id"]
     
     // create an RKEntityMapping for yourself, mapping keys and values and setting id and relationships if neccessary
     static var entityMapping: RKEntityMapping {

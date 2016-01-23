@@ -7,13 +7,27 @@
 //
 
 import Foundation
-import CoreData
+import RestKit
 
 
-class Mileage: NSManagedObject {
+class Mileage: NSManagedObject, Model {
 
-// Insert code here to add functionality to your managed object subclass
-
+    static var pathPatterns = ["mileages", "mileages/:id"]
+    
+    // create an RKEntityMapping for yourself, mapping keys and values and setting id and relationships if neccessary
+    static var entityMapping: RKEntityMapping {
+        let mapping = RKEntityMapping(forEntityForName: "Mileage", inManagedObjectStore: RKManagedObjectStore.defaultStore())
+        mapping.addAttributeMappingsFromDictionary([
+            "id": "id",
+            "value": "value",
+            "timestamp": "timestamp",
+            "source": "source",
+            "created_at": "createdAt",
+            "updated_at": "updatedAt"
+            ])
+        mapping.identificationAttributes = ["id"]
+        return mapping
+    }
 }
 
 extension Mileage {

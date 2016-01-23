@@ -12,7 +12,7 @@ import RestKit
 
 class Vehicle: NSManagedObject, Model {
 
-    static var pathPattern = "/vehicles"
+    static var pathPatterns = ["vehicles", "vehicles/:vin"]
     
     // create an RKEntityMapping for yourself, mapping keys and values and setting id and relationships if neccessary
     static var entityMapping: RKEntityMapping {
@@ -24,8 +24,10 @@ class Vehicle: NSManagedObject, Model {
             "updated_at": "updatedAt"
             ])
         mapping.identificationAttributes = ["vin"]
+        // vehicle objects include their MakeModelYear and User objects
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "make_model_year", toKeyPath: "makeModelYear", withMapping: MakeModelYear.entityMapping))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "users", toKeyPath: "users", withMapping: User.entityMapping))
+        
         return mapping
     }
 

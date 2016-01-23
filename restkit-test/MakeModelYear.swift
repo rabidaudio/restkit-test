@@ -14,7 +14,7 @@ class MakeModelYear: NSManagedObject, Model {
 
     
     static var name = "MakeModelYear"
-    static var pathPattern = "/make_model_years"
+    static var pathPatterns = ["make_model_years", "make_model_years/:id"]
     
     // create an RKEntityMapping for yourself, mapping keys and values and setting id and relationships if neccessary
     static var entityMapping: RKEntityMapping {
