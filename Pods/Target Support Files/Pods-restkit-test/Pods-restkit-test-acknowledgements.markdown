@@ -219,6 +219,14 @@ third-party archives.
    limitations under the License.
 
 
+## OMGHTTPURLRQ
+
+See README.markdown for full license text.
+
+## PromiseKit
+
+@see README
+
 ## RKValueTransformers
 
 Apache License

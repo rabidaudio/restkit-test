@@ -25,20 +25,8 @@ class LoadingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
     func loadVehicles() {
         let manager = RKObjectManager.sharedManager()
-        
-        
-//        print("response descriptors", manager.responseDescriptors.count, manager.responseDescriptors)
-//        for rd in manager.responseDescriptors {
-//            for p in ["/vehicles", "/vehicles?user_email=julian%40fixdapp.com", "/vehicles/4T1BG22K1YU653452", "/users", "/users/7", "/make_model_years", "/make_model_years/14"] {
-//                let url = "http://localhost:3000/api/v2"+p
-//                if rd.matchesURL(NSURL(string: url)){
-//                    print(p, rd.pathPattern)
-//                }
-//            }
-//        }
         
         manager.getObjectsAtPath("vehicles", parameters: ["user_email": "julian@fixdapp.com"], success: gotVehicles, failure: failedGetVehicles)
 //        manager.getObject(nil, path: "vehicles/4T1BG22K1YU653452", parameters: nil, success: gotVehicles, failure: failedGetVehicles)
@@ -52,9 +40,7 @@ class LoadingViewController: UIViewController {
         
         for data in result.array() {
             if let vehicle = data as? Vehicle {
-                print("GOT A VEHICLE")
-                print("vin: ", vehicle.vin)
-                print("users: ", vehicle.users?.allObjects)
+                print("GOT A VEHICLE", vehicle)
             }else{
                 print("THIS THING AINT A VEHICLE", data)
             }
@@ -63,8 +49,28 @@ class LoadingViewController: UIViewController {
     
     func failedGetVehicles(operation: RKObjectRequestOperation!, err: NSError!) {
         print("err", err)
-        let alertController = UIAlertController(title: "Error", message: err.description, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alertController, animated: true, completion: nil)
+        
+        let context = AppDelegate.context()
+        
+//        let allUsersRequest = NSFetchRequest(entityName: "User")
+        
+        let userRequset = NSFetchRequest(entityName: "User")
+        let email = "julian@fixdapp.com"
+        userRequset.predicate = NSPredicate(format: "email LIKE %@", email)
+        
+        print("requesting local")
+        do {
+//            let allUsersResults = try context.executeFetchRequest(allUsersRequest)
+//            print(allUsersResults)
+            
+            let userResults = try context.executeFetchRequest(userRequset)
+            if let user = userResults.first as? User {
+                print("got vehices locally", user.vehicles)
+            }else{
+                print("problem fetching:", userResults)
+            }
+        }catch {
+            print("problem fetching: \(error)")
+        }
     }
 }

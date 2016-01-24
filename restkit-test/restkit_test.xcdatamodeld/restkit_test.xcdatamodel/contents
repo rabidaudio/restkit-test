@@ -6,7 +6,7 @@
     </entity>
     <entity name="Dtc" representedClassName=".Dtc" parentEntity="BaseEntity" syncable="YES">
         <attribute name="additionalDetails" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="code" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="consequences" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="extremeCase" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="manufacturer" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -18,14 +18,14 @@
     <entity name="MakeModelYear" representedClassName=".MakeModelYear" parentEntity="BaseEntity" syncable="YES">
         <attribute name="bodyType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="edmundsId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="make" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="model" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="year" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="vehicles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Vehicle" inverseName="makeModelYear" inverseEntity="Vehicle" syncable="YES"/>
     </entity>
     <entity name="Mileage" representedClassName=".Mileage" parentEntity="BaseEntity" syncable="YES">
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="source" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="value" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -35,7 +35,7 @@
     <entity name="PullEvent" representedClassName=".PullEvent" parentEntity="BaseEntity" syncable="YES">
         <attribute name="background" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="celOn" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="obdProtocol" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pullTime" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="dtcs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Dtc" inverseName="pulls" inverseEntity="Dtc" syncable="YES"/>
@@ -43,10 +43,9 @@
         <relationship name="vehicle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Vehicle" inverseName="pulls" inverseEntity="Vehicle" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName=".User" parentEntity="BaseEntity" syncable="YES">
-        <attribute name="authToken" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="mileages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Mileage" inverseName="user" inverseEntity="Mileage" syncable="YES"/>
         <relationship name="pulls" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PullEvent" inverseName="user" inverseEntity="PullEvent" syncable="YES"/>
@@ -54,7 +53,7 @@
     </entity>
     <entity name="Vehicle" representedClassName=".Vehicle" parentEntity="BaseEntity" syncable="YES">
         <attribute name="userSubmitted" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="vin" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vin" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="makeModelYear" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MakeModelYear" inverseName="vehicles" inverseEntity="MakeModelYear" syncable="YES"/>
         <relationship name="mileages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Mileage" inverseName="vehicle" inverseEntity="Mileage" syncable="YES"/>
         <relationship name="pulls" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PullEvent" inverseName="vehicle" inverseEntity="PullEvent" syncable="YES"/>
@@ -62,11 +61,11 @@
     </entity>
     <elements>
         <element name="BaseEntity" positionX="-164" positionY="-630" width="128" height="75"/>
-        <element name="Dtc" positionX="306" positionY="-36" width="128" height="178"/>
-        <element name="MakeModelYear" positionX="-155" positionY="-342" width="128" height="148"/>
-        <element name="Mileage" positionX="-522" positionY="18" width="128" height="133"/>
-        <element name="PullEvent" positionX="99" positionY="12" width="128" height="163"/>
-        <element name="User" positionX="-18" positionY="-183" width="128" height="163"/>
-        <element name="Vehicle" positionX="-317" positionY="-153" width="128" height="133"/>
+        <element name="Dtc" positionX="306" positionY="-36" width="128" height="180"/>
+        <element name="MakeModelYear" positionX="-155" positionY="-342" width="128" height="150"/>
+        <element name="Mileage" positionX="-522" positionY="18" width="128" height="135"/>
+        <element name="PullEvent" positionX="99" positionY="12" width="128" height="165"/>
+        <element name="User" positionX="-18" positionY="-183" width="128" height="150"/>
+        <element name="Vehicle" positionX="-317" positionY="-153" width="128" height="135"/>
     </elements>
 </model>

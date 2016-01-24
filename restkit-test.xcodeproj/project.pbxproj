@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		A762CD99E75DF8C7610937AF /* Pods_restkit_test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 415AFAF359670F0682390A4E /* Pods_restkit_test.framework */; };
 		CE35D9091C502C8900C2E1AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE35D9081C502C8900C2E1AB /* AppDelegate.swift */; };
-		CE35D90B1C502C8900C2E1AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE35D90A1C502C8900C2E1AB /* ViewController.swift */; };
 		CE35D90E1C502C8900C2E1AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE35D90C1C502C8900C2E1AB /* Main.storyboard */; };
 		CE35D9111C502C8900C2E1AB /* restkit_test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE35D90F1C502C8900C2E1AB /* restkit_test.xcdatamodeld */; };
 		CE35D9131C502C8900C2E1AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE35D9121C502C8900C2E1AB /* Assets.xcassets */; };
 		CE35D9161C502C8900C2E1AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE35D9141C502C8900C2E1AB /* LaunchScreen.storyboard */; };
-		CE6B65591C5092BE0072E233 /* ObjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B65581C5092BE0072E233 /* ObjectManager.swift */; };
+		CE6CFE171C5490AA00BD5CCC /* ObjectCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6CFE161C5490AA00BD5CCC /* ObjectCache.swift */; };
+		CE6CFE191C549F8300BD5CCC /* ObjectManagerPromiseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6CFE181C549F8300BD5CCC /* ObjectManagerPromiseExtension.swift */; };
+		CEEA032B1C54569A0070366A /* FixdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEA032A1C54569A0070366A /* FixdError.swift */; };
+		CEEA032D1C54613F0070366A /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEA032C1C54613F0070366A /* LoginController.swift */; };
 		CEF55DF31C528026008D9F8A /* MakeModelYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF55DE71C528026008D9F8A /* MakeModelYear.swift */; };
 		CEF55DF51C528026008D9F8A /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF55DE91C528026008D9F8A /* Vehicle.swift */; };
 		CEF55DF71C528026008D9F8A /* Mileage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF55DEB1C528026008D9F8A /* Mileage.swift */; };
@@ -30,13 +32,15 @@
 		415AFAF359670F0682390A4E /* Pods_restkit_test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_restkit_test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE35D9051C502C8900C2E1AB /* restkit-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "restkit-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE35D9081C502C8900C2E1AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CE35D90A1C502C8900C2E1AB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CE35D90D1C502C8900C2E1AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE35D9101C502C8900C2E1AB /* restkit_test.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = restkit_test.xcdatamodel; sourceTree = "<group>"; };
 		CE35D9121C502C8900C2E1AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE35D9151C502C8900C2E1AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE35D9171C502C8900C2E1AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE6B65581C5092BE0072E233 /* ObjectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectManager.swift; sourceTree = "<group>"; };
+		CE6CFE161C5490AA00BD5CCC /* ObjectCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectCache.swift; sourceTree = "<group>"; };
+		CE6CFE181C549F8300BD5CCC /* ObjectManagerPromiseExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectManagerPromiseExtension.swift; sourceTree = "<group>"; };
+		CEEA032A1C54569A0070366A /* FixdError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixdError.swift; sourceTree = "<group>"; };
+		CEEA032C1C54613F0070366A /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		CEF55DE71C528026008D9F8A /* MakeModelYear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeModelYear.swift; sourceTree = "<group>"; };
 		CEF55DE91C528026008D9F8A /* Vehicle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
 		CEF55DEB1C528026008D9F8A /* Mileage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mileage.swift; sourceTree = "<group>"; };
@@ -87,6 +91,7 @@
 				CEF55DEF1C528026008D9F8A /* Dtc.swift */,
 				CEF55DF11C528026008D9F8A /* User.swift */,
 				CEF55DFE1C5280BA008D9F8A /* Model.swift */,
+				CE6CFE161C5490AA00BD5CCC /* ObjectCache.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -114,14 +119,15 @@
 			children = (
 				CE31ED971C502E2E00FC863D /* Models */,
 				CE35D9081C502C8900C2E1AB /* AppDelegate.swift */,
-				CE35D90A1C502C8900C2E1AB /* ViewController.swift */,
 				CE35D90C1C502C8900C2E1AB /* Main.storyboard */,
 				CE35D9121C502C8900C2E1AB /* Assets.xcassets */,
 				CE35D9141C502C8900C2E1AB /* LaunchScreen.storyboard */,
 				CE35D9171C502C8900C2E1AB /* Info.plist */,
 				CE35D90F1C502C8900C2E1AB /* restkit_test.xcdatamodeld */,
-				CE6B65581C5092BE0072E233 /* ObjectManager.swift */,
 				CEF55E001C52E88F008D9F8A /* LoadingViewController.swift */,
+				CEEA032A1C54569A0070366A /* FixdError.swift */,
+				CEEA032C1C54613F0070366A /* LoginController.swift */,
+				CE6CFE181C549F8300BD5CCC /* ObjectManagerPromiseExtension.swift */,
 			);
 			path = "restkit-test";
 			sourceTree = "<group>";
@@ -250,16 +256,18 @@
 			files = (
 				CEF55DF51C528026008D9F8A /* Vehicle.swift in Sources */,
 				CEF55DFB1C528026008D9F8A /* Dtc.swift in Sources */,
-				CE6B65591C5092BE0072E233 /* ObjectManager.swift in Sources */,
 				CEF55DFD1C528026008D9F8A /* User.swift in Sources */,
-				CE35D90B1C502C8900C2E1AB /* ViewController.swift in Sources */,
+				CE6CFE171C5490AA00BD5CCC /* ObjectCache.swift in Sources */,
 				CE35D9111C502C8900C2E1AB /* restkit_test.xcdatamodeld in Sources */,
 				CEF55DF31C528026008D9F8A /* MakeModelYear.swift in Sources */,
 				CEF55DF71C528026008D9F8A /* Mileage.swift in Sources */,
 				CEF55DFF1C5280BA008D9F8A /* Model.swift in Sources */,
 				CE35D9091C502C8900C2E1AB /* AppDelegate.swift in Sources */,
+				CEEA032B1C54569A0070366A /* FixdError.swift in Sources */,
 				CEF55DF91C528026008D9F8A /* PullEvent.swift in Sources */,
 				CEF55E011C52E88F008D9F8A /* LoadingViewController.swift in Sources */,
+				CE6CFE191C549F8300BD5CCC /* ObjectManagerPromiseExtension.swift in Sources */,
+				CEEA032D1C54613F0070366A /* LoginController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

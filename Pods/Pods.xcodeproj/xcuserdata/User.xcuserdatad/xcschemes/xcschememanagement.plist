@@ -14,7 +14,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>OMGHTTPURLRQ.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-restkit-test.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PromiseKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -42,7 +52,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2226E30FD0AFAE4931E7FAB5A9E4FD4E</key>
+		<key>190ACD3A51BC90B85EADB13E9CDD207B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>194BA4CCC204B815513D9D1DCCA4FE9E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,22 +72,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5494501310480AC4EA2FC45B12AF5EA0</key>
+		<key>998BB094981A0C340C96C82B359B6E41</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A179B619AC96A2E45DE035FE69B136BD</key>
+		<key>C245B0029F00F02225F45E250593B12E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A585461B53907B6DD06CFCA3DB892BB6</key>
+		<key>EB82EFBE181119471DB0509683E4A916</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>EBB70B39B24BFA8A41C2439A78FAC47B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F306A464F6477EF53459F1CB4B051797</key>
 		<dict>
 			<key>primary</key>
 			<true/>

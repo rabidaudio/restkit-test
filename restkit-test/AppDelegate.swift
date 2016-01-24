@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 import RestKit
+import PromiseKit
+import AFNetworking
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -47,6 +49,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let dbPath = RKApplicationDataDirectory().stringByAppendingString("/DataStore.sqlite")
         try! managedObjectStore.addSQLitePersistentStoreAtPath(dbPath, fromSeedDatabaseAtPath: nil, withConfiguration: nil, options: nil)
         
+//        managedObjectStore.managedObjectCache = custom
+        
         // TODO include valid and error response descriptors
 //        objectManager.addResponseDescriptorsFromArray(<#T##responseDescriptors: [AnyObject]!##[AnyObject]!#>)
         
@@ -59,9 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //show loading at top
         AFNetworkActivityIndicatorManager.sharedManager().enabled = true
         
-        objectManager.HTTPClient.setDefaultHeader("X-User-Email", value: "julian@fixdapp.com")
-        objectManager.HTTPClient.setDefaultHeader("X-User-Token", value: "ENx1hTdcyThG-uUHh1oa")
-        
         objectManager.requestSerializationMIMEType = RKMIMETypeJSON
         
         for model in models {
@@ -72,6 +73,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
+        objectManager.addResponseDescriptor(User.loginResponseDescriptor)
+        
+        //add mapping for status
+        let statusMapping = RKObjectMapping(forClass: NSMutableDictionary.self)
+        statusMapping.addAttributeMappingsFromDictionary(["version":"version", "current_user": "currentUser"])
+        let statusResponseDescriptor = RKResponseDescriptor(mapping: statusMapping, method: .GET, pathPattern: "", keyPath: "data", statusCodes: RKStatusCodeIndexSetForClass(.Successful))
+        objectManager.addResponseDescriptor(statusResponseDescriptor)
+        
 //        let context = managedObjectStore.mainQueueManagedObjectContext
         
         // use RKTransformer instead
@@ -80,4 +89,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
-

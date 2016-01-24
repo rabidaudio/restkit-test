@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '19B58C53B030B62843373FE1'
+               BlueprintIdentifier = '6FDBD53AE90C33DEDC29BFCF'
                BlueprintName = 'Pods-restkit-test'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods_restkit_test.framework'>

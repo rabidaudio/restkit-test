@@ -86,6 +86,8 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-restkit-test/AFNetworking.framework"
   install_framework "Pods-restkit-test/ISO8601DateFormatterValueTransformer.framework"
+  install_framework "Pods-restkit-test/OMGHTTPURLRQ.framework"
+  install_framework "Pods-restkit-test/PromiseKit.framework"
   install_framework "Pods-restkit-test/RKValueTransformers.framework"
   install_framework "Pods-restkit-test/RestKit.framework"
   install_framework "Pods-restkit-test/SOCKit.framework"
@@ -94,6 +96,8 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-restkit-test/AFNetworking.framework"
   install_framework "Pods-restkit-test/ISO8601DateFormatterValueTransformer.framework"
+  install_framework "Pods-restkit-test/OMGHTTPURLRQ.framework"
+  install_framework "Pods-restkit-test/PromiseKit.framework"
   install_framework "Pods-restkit-test/RKValueTransformers.framework"
   install_framework "Pods-restkit-test/RestKit.framework"
   install_framework "Pods-restkit-test/SOCKit.framework"
