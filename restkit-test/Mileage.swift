@@ -12,14 +12,15 @@ import RestKit
 
 class Mileage: NSManagedObject, Model {
 
-    static var pathPatterns = ["mileages", "mileages/:id"]
+    static var pathPatterns = ["mileages", "mileages/:id", "vehicles/:vin/mileages"]
     
     // create an RKEntityMapping for yourself, mapping keys and values and setting id and relationships if neccessary
     static var entityMapping: RKEntityMapping {
         let mapping = RKEntityMapping(forEntityForName: "Mileage", inManagedObjectStore: RKManagedObjectStore.defaultStore())
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",
-            "value": "value",
+            // 'value' conflicts with NSMangedObject
+            "value": "miles",
             "timestamp": "timestamp",
             "source": "source",
             "created_at": "createdAt",
@@ -33,7 +34,7 @@ class Mileage: NSManagedObject, Model {
 extension Mileage {
     
     @NSManaged var id: NSNumber?
-    @NSManaged var value: NSNumber?
+    @NSManaged var miles: NSNumber?
     @NSManaged var timestamp: NSDate?
     @NSManaged var source: String?
     @NSManaged var vehicle: Vehicle?

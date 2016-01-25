@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let models: [Model.Type] = [
         MakeModelYear.self,
         Vehicle.self,
-//        Mileage.self,
+        Mileage.self,
 //        PullEvent.self,
 //        Dtc.self,
         User.self
@@ -36,11 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RKLogConfigureFromEnvironment()
         
         let objectManager = RKObjectManager(baseURL: NSURL(string: "http://localhost:3000/api/v2/"))
-        
-//        let modelURL = NSBundle.mainBundle().URLForResource("restkit_test", withExtension: "momd")!
-        // create managedObjectModel instance from CoreData
-//        let managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL)!
-        //combine all the Core Data models into a NSManagedObjectModel
         let managedObjectModel = NSManagedObjectModel.mergedModelFromBundles(nil)
         
         let managedObjectStore = RKManagedObjectStore(managedObjectModel: managedObjectModel)
@@ -66,14 +61,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         objectManager.requestSerializationMIMEType = RKMIMETypeJSON
         
         for model in models {
-            // todo figure out model.pathPattern
             for pattern in model.pathPatterns {
-                let descriptor = RKResponseDescriptor(mapping: model.entityMapping, method: .Any, pathPattern: pattern, keyPath: "data", statusCodes: RKStatusCodeIndexSetForClass(.Successful))
-                objectManager.addResponseDescriptor(descriptor)
+//                let requestDescriptor = RKRequestDescriptor(mapping: model.entityMapping, objectClass: (model as! AnyClass), rootKeyPath: "data", method: .Any)
+                let responseDescriptor = RKResponseDescriptor(mapping: model.entityMapping, method: .Any, pathPattern: pattern, keyPath: "data", statusCodes: RKStatusCodeIndexSetForClass(.Successful))
+//                objectManager.addRequestDescriptor(requestDescriptor)
+                objectManager.addResponseDescriptor(responseDescriptor)
             }
         }
+//        let loginMapping = RKObjectMapping(forClass: NSMutableDictionary.self)
+//        loginMapping.addAttributeMappingsFromDictionary(["authentication_token": "authToken"])
+////        loginMapping.addRelationshipMappingWithSourceKeyPath(nil, mapping: User.entityMapping)
+//        let loginResponseDescriptor = RKResponseDescriptor(mapping: loginMapping, method: .Any, pathPattern: "users/current", keyPath: "data", statusCodes: RKStatusCodeIndexSetForClass(.Successful))
+//        objectManager.addResponseDescriptor(loginResponseDescriptor)
+        //objectManager.addResponseDescriptor(User.loginResponseDescriptor)
         
-        objectManager.addResponseDescriptor(User.loginResponseDescriptor)
+        //add pagination 
+        let paginationMapping = RKObjectMapping(forClass: RKPaginator.self)
+        paginationMapping.addAttributeMappingsFromDictionary([
+            "pagination.current_page": "currentPage",
+            "pagination.total_pages": "pageCount",
+            "pagination.per_page": "perPage",
+            "pagination.total_entries": "objectCount"
+        ])
+        objectManager.paginationMapping = paginationMapping
         
         //add mapping for status
         let statusMapping = RKObjectMapping(forClass: NSMutableDictionary.self)
@@ -81,10 +91,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let statusResponseDescriptor = RKResponseDescriptor(mapping: statusMapping, method: .GET, pathPattern: "", keyPath: "data", statusCodes: RKStatusCodeIndexSetForClass(.Successful))
         objectManager.addResponseDescriptor(statusResponseDescriptor)
         
-//        let context = managedObjectStore.mainQueueManagedObjectContext
-        
-        // use RKTransformer instead
-//        RKEntityMapping.addDefaultDateFormatterForString("yyyy-MM-dd'T'HH:mm:ssZZZZZ", inTimeZone: NSTimeZone(forSecondsFromGMT: 0))
+        objectManager.HTTPClient.setDefaultHeader("X-User-Email", value: User.lastUserEmail)
+        objectManager.HTTPClient.setDefaultHeader("X-User-Token", value: User.lastUserToken)
         
         return true
     }

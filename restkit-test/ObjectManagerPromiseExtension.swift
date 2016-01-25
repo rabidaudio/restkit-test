@@ -18,83 +18,100 @@ import PromiseKit
 
 extension RKObjectManager {
     
-    // extension of ObjectManager to allow raw HTTP requests that return promises
-//    func executeRawRequest(path: String!, method: RKRequestMethod, parameters: [NSObject : AnyObject]!) -> Promise<AnyObject!> {
-//        var methodString: String
-//        switch method {
-//        case RKRequestMethod.GET:
-//            methodString = "GET"
-//        case RKRequestMethod.POST:
-//            methodString = "POST"
-//        case RKRequestMethod.PUT:
-//            methodString = "PUT"
-//        case RKRequestMethod.PATCH:
-//            methodString = "PATCH"
-//        case RKRequestMethod.DELETE:
-//            methodString = "DELETE"
-//        default:
-//            methodString = "GET"
-//        }
-//        let request = HTTPClient.requestWithMethod(methodString, path: path, parameters: parameters)
-//        return Promise { fulfill, reject in
-//            HTTPClient.HTTPRequestOperationWithRequest(request, success: { fulfill($1) }, failure: { reject($1) })
-//        }
-//    }
-    
-    
-    func managedObjectRequestOperationWithRequest(request: NSURLRequest!, managedObjectContext: NSManagedObjectContext!) -> Promise<RKMappingResult!> {
+    func managedObjectRequestOperationWithRequestAndPromsise(request: NSURLRequest!, managedObjectContext: NSManagedObjectContext!) -> Promise<Response> {
         return Promise { fulfill, reject in
-            managedObjectRequestOperationWithRequest(request, managedObjectContext: managedObjectContext, success: { fulfill($1) }, failure:  { reject($1) })
+            managedObjectRequestOperationWithRequest(request, managedObjectContext: managedObjectContext, success: { fulfill(Response(operation: $0, result: $1)) }, failure:  { reject($1) })
         }
     }
     
-    func getObjectsAtPath(path: String!, parameters: [NSObject : AnyObject]!) -> Promise<RKMappingResult!> {
+    func getObjectsAtPathWithPromise(path: String!, parameters: [NSObject : AnyObject]!) -> Promise<Response> {
         return Promise { fulfill, reject in
-            getObjectsAtPath(path, parameters: parameters, success: { fulfill($1) }, failure:  { reject($1) })
+            getObjectsAtPath(path, parameters: parameters, success: { fulfill(Response(operation: $0, result: $1)) }, failure:  { reject($1) })
         }
     }
     
-    func getObjectsAtPathForRelationship(relationshipName: String!, ofObject: AnyObject!, parameters: [NSObject : AnyObject]!) -> Promise<RKMappingResult!> {
+    func getAllObjectsForPathPatternWithPromise(path: String!, parameters: [NSObject : AnyObject]!) -> Promise<PagedResponse> {
+        var pathPattern = HTTPClient.requestWithMethod("GET", path: path, parameters: parameters).URL!.absoluteString
+        pathPattern.removeRange(pathPattern.rangeOfString(baseURL.absoluteString)!)
+        let paginator = paginatorWithPathPattern(pathPattern)
         return Promise { fulfill, reject in
-            getObjectsAtPathForRelationship(relationshipName, ofObject: ofObject, parameters: parameters, success: { fulfill($1) }, failure:  { reject($1) })
+            paginator.setCompletionBlockWithSuccess({ (paginator, results, page) -> Void in
+                if paginator.hasNextPage {
+                    paginator.loadNextPage()
+                }else {
+                    fulfill(PagedResponse(paginator: paginator, results: results, page: page))
+                }
+            }, failure: { reject($1) } )
+            paginator.loadPage(0)
+        }
+    }
+    
+    func getObjectsAtPathForRelationshipWithPromise(relationshipName: String!, ofObject: AnyObject!, parameters: [NSObject : AnyObject]!) -> Promise<Response> {
+        return Promise { fulfill, reject in
+            getObjectsAtPathForRelationship(relationshipName, ofObject: ofObject, parameters: parameters, success: { fulfill(Response(operation: $0, result: $1)) }, failure:  { reject($1) })
         }
     }
     
     
-    func getObjectsAtPathForRouteNamed(routeName: String!, object: AnyObject!, parameters: [NSObject : AnyObject]!) -> Promise<RKMappingResult!> {
+    func getObjectsAtPathForRouteNamedWithPromise(routeName: String!, object: AnyObject!, parameters: [NSObject : AnyObject]!) -> Promise<Response> {
         return Promise { fulfill, reject in
-            getObjectsAtPathForRouteNamed(routeName, object: object, parameters: parameters, success: { fulfill($1) }, failure:  { reject($1) })
+            getObjectsAtPathForRouteNamed(routeName, object: object, parameters: parameters, success: { fulfill(Response(operation: $0, result: $1)) }, failure:  { reject($1) })
         }
     }
     
-    func getObject(object: AnyObject!, path: String!, parameters: [NSObject : AnyObject]!) -> Promise<RKMappingResult!> {
+    func getObjectWithPromise(object: AnyObject!, path: String!, parameters: [NSObject : AnyObject]!) -> Promise<Response> {
         return Promise { fulfill, reject in
-            getObject(object, path: path, parameters: parameters, success: { fulfill($1) }, failure:  { reject($1) })
+            getObject(object, path: path, parameters: parameters, success: { fulfill(Response(operation: $0, result: $1)) }, failure:  { reject($1) })
         }
     }
     
     
-    func putObject(object: AnyObject!, path: String!, parameters: [NSObject : AnyObject]!)-> Promise<RKMappingResult!> {
+    func putObjectWithPromise(object: AnyObject!, path: String!, parameters: [NSObject : AnyObject]!)-> Promise<Response> {
         return Promise { fulfill, reject in
-            putObject(object, path: path, parameters: parameters, success: { fulfill($1) }, failure:  { reject($1) })
+            putObject(object, path: path, parameters: parameters, success: { fulfill(Response(operation: $0, result: $1)) }, failure:  { reject($1) })
         }
     }
     
-    func postObject(object: AnyObject!, path: String!, parameters: [NSObject : AnyObject]!)-> Promise<RKMappingResult!> {
+    func postObjectWithPromise(object: AnyObject!, path: String!, parameters: [NSObject : AnyObject]!)-> Promise<Response> {
         return Promise { fulfill, reject in
-            postObject(object, path: path, parameters: parameters, success: { fulfill($1) }, failure:  { reject($1) })
+            postObject(object, path: path, parameters: parameters, success: { fulfill(Response(operation: $0, result: $1)) }, failure:  { reject($1) })
         }
     }
     
-    func patchObject(object: AnyObject!, path: String!, parameters: [NSObject : AnyObject]!)-> Promise<RKMappingResult!> {
+    func patchObjectWithPromise(object: AnyObject!, path: String!, parameters: [NSObject : AnyObject]!)-> Promise<Response> {
         return Promise { fulfill, reject in
-            patchObject(object, path: path, parameters: parameters, success: { fulfill($1) }, failure:  { reject($1) })
+            patchObject(object, path: path, parameters: parameters, success: { fulfill(Response(operation: $0, result: $1)) }, failure:  { reject($1) })
         }
     }
     
-    func deleteObjectP(object: AnyObject!, path: String!, parameters: [NSObject : AnyObject]!)-> Promise<RKMappingResult!> {
+    func deleteObjectWithPromise(object: AnyObject!, path: String!, parameters: [NSObject : AnyObject]!)-> Promise<Response> {
         return Promise { fulfill, reject in
-            deleteObject(object, path: path, parameters: parameters, success: { fulfill($1) }, failure:  { reject($1) })
+            deleteObject(object, path: path, parameters: parameters, success: { fulfill(Response(operation: $0, result: $1)) }, failure:  { reject($1) })
         }
     }
 }
+
+struct Response {
+    let operation: RKObjectRequestOperation!
+    let result: RKMappingResult!
+    
+    func firstResult<T>() -> T? {
+        return result.firstObject as? T
+    }
+}
+
+struct PagedResponse {
+    let paginator: RKPaginator!
+    let results: [AnyObject]!
+    let page: UInt
+}
+//extension RKPaginator {
+//    
+//    func loadPageWithPromise(pageNumber: UInt) -> Promise<PagedResponse> {
+//        let p = Promise { fulfill, reject in
+//            setCompletionBlockWithSuccess({ fulfill(PagedResponse(paginator: $0, results: $1, page: $2)) }, failure: { reject($1) })
+//        }
+//        loadPage(pageNumber)
+//        return p
+//    }
+//}

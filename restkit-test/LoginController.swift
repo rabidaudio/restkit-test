@@ -24,15 +24,15 @@ class LoginController: UIViewController {
         showForm(false)
         
         let manager = RKObjectManager.sharedManager()
-        let currentUser = User.currentUser
-        if(currentUser == nil){
+//        let currentUser = User.currentUser
+        if(!User.loggedIn){
             showForm(true)
         }else{
             // double check that we are still logged in
-            manager.getObject(nil, path: "", parameters: nil).then { data -> Void in
+            manager.getObjectWithPromise(nil, path: "", parameters: nil).then { data -> Void in
                 self.continueToApp()
             }.error { err -> Void in
-                self.emailField.text = currentUser!.email // go ahead and fill in their email if we have it
+                self.emailField.text = User.lastUserEmail //currentUser!.email // go ahead and fill in their email if we have it
                 self.showForm(true)
             }
         }

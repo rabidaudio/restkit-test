@@ -26,9 +26,9 @@
     </entity>
     <entity name="Mileage" representedClassName=".Mileage" parentEntity="BaseEntity" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="miles" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="source" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="value" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="mileages" inverseEntity="User" syncable="YES"/>
         <relationship name="vehicle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Vehicle" inverseName="mileages" inverseEntity="Vehicle" syncable="YES"/>
     </entity>
@@ -43,6 +43,7 @@
         <relationship name="vehicle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Vehicle" inverseName="pulls" inverseEntity="Vehicle" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName=".User" parentEntity="BaseEntity" syncable="YES">
+        <attribute name="authToken" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
@@ -65,7 +66,7 @@
         <element name="MakeModelYear" positionX="-155" positionY="-342" width="128" height="150"/>
         <element name="Mileage" positionX="-522" positionY="18" width="128" height="135"/>
         <element name="PullEvent" positionX="99" positionY="12" width="128" height="165"/>
-        <element name="User" positionX="-18" positionY="-183" width="128" height="150"/>
+        <element name="User" positionX="-18" positionY="-183" width="128" height="165"/>
         <element name="Vehicle" positionX="-317" positionY="-153" width="128" height="135"/>
     </elements>
 </model>
