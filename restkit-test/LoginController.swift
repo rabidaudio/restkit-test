@@ -25,7 +25,7 @@ class LoginController: UIViewController {
         
         let manager = RKObjectManager.sharedManager()
 //        let currentUser = User.currentUser
-        if(!User.loggedIn){
+        if(!UserModel.loggedIn){
             showForm(true)
         }else{
             // double check that we are still logged in
@@ -35,7 +35,7 @@ class LoginController: UIViewController {
                 if let e = FixdError.getErrorInfo(err) {
                     print("data: ", e)
                 }
-                self.emailField.text = User.lastUserEmail //currentUser!.email // go ahead and fill in their email if we have it
+                self.emailField.text = UserModel.lastUserEmail //currentUser!.email // go ahead and fill in their email if we have it
                 self.showForm(true)
             }
         }
@@ -59,7 +59,7 @@ class LoginController: UIViewController {
             loginButton.hidden = true
             loadingIndicator.hidden = false
             loadingIndicator.startAnimating()
-            User.login(email!, password: password!).then { user -> Void in
+            UserModel.login(email!, password: password!).then { user -> Void in
                 self.continueToApp()
             }.always {
                 self.loadingIndicator.stopAnimating()
@@ -85,6 +85,6 @@ class LoginController: UIViewController {
     }
     
     @IBAction func unwindToLogin(unwindSegue: UIStoryboardSegue) {
-        User.logout()
+        UserModel.logout()
     }
 }

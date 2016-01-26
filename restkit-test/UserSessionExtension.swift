@@ -12,10 +12,9 @@ import PromiseKit
 
 
 //extra methods on user for handling sessions
-extension User {
+extension UserModel {
     
-    // nonobjc required for `static let`: http://stackoverflow.com/a/32831677
-    @nonobjc static let currentUserPathPattern = "users/current"
+    static let currentUserPathPattern = "users/current"
     
     //hidden cached value of current user object
     private static var _currentUser: User?
@@ -23,6 +22,8 @@ extension User {
     private static var manager = RKObjectManager.sharedManager()
     
     private static var prefs = NSUserDefaults.standardUserDefaults()
+    
+    static let loginResponseDescriptor = RKResponseDescriptor(mapping: User.model.entityMapping, method: .Any, pathPattern: currentUserPathPattern, keyPath: User.model.keyPath, statusCodes: RKStatusCodeIndexSetForClass(.Successful))
     
     static var loggedIn: Bool {
         get {

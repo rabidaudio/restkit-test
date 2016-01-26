@@ -17,13 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    let models: [Model.Type] = [
-        MakeModelYear.self,
-        Vehicle.self,
-        Mileage.self,
+    let models: [Model] = [
+        MakeModelYear.model,
+        Vehicle.model,
+        Mileage.model,
 //        PullEvent.self,
 //        Dtc.self,
-        User.self
+        User.model
     ]
     
     // make context globally accessable
@@ -63,34 +63,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let success = RKStatusCodeIndexSetForClass(.Successful)
         let keyPath = "data" // the ket path for all objects in APIv2
         
-        for model in models {
-//            for pattern in model.pathPatterns {
-////                let requestDescriptor = RKRequestDescriptor(mapping: model.entityMapping, objectClass: (model as! AnyClass), rootKeyPath: "data", method: .Any)
-//                let responseDescriptor = RKResponseDescriptor(mapping: model.entityMapping, method: .Any, pathPattern: pattern, keyPath: "data", statusCodes: RKStatusCodeIndexSetForClass(.Successful))
-////                objectManager.addRequestDescriptor(requestDescriptor)
-//                objectManager.addResponseDescriptor(responseDescriptor)
+//        for model in models {
+////            for pattern in model.pathPatterns {
+//////                let requestDescriptor = RKRequestDescriptor(mapping: model.entityMapping, objectClass: (model as! AnyClass), rootKeyPath: "data", method: .Any)
+////                let responseDescriptor = RKResponseDescriptor(mapping: model.entityMapping, method: .Any, pathPattern: pattern, keyPath: "data", statusCodes: RKStatusCodeIndexSetForClass(.Successful))
+//////                objectManager.addRequestDescriptor(requestDescriptor)
+////                objectManager.addResponseDescriptor(responseDescriptor)
+////            }
+//            
+//            for route in model.routeSet {
+//                // add the core CRUD responses and routes
+//                objectManager.router.routeSet.addRoute(route)
+//                let descriptor = RKResponseDescriptor(mapping: model.entityMapping, method: route.method, pathPattern: route.pathPattern, keyPath: keyPath, statusCodes: success)
+//                objectManager.addResponseDescriptor(descriptor)
+//                
+//                // add the index response as well
+//                for indexPath in model.indexPathPatterns {
+//                    let indexDescriptor = RKResponseDescriptor(mapping: model.entityMapping, method: .GET, pathPattern: indexPath, keyPath: keyPath, statusCodes: success)
+//                    objectManager.addResponseDescriptor(indexDescriptor)
+//                }
+//                
+//                //also create a request descriptor
+//                objectManager.addRequestDescriptor(RKRequestDescriptor(mapping: model.dictionaryMapping, objectClass: model as! AnyObject.Type, rootKeyPath: "data", method: .Any))
 //            }
-            
-            for route in model.routeSet {
-                // add the core CRUD responses and routes
-                objectManager.router.routeSet.addRoute(route)
-                let descriptor = RKResponseDescriptor(mapping: model.entityMapping, method: route.method, pathPattern: route.pathPattern, keyPath: keyPath, statusCodes: success)
-                objectManager.addResponseDescriptor(descriptor)
-                
-                // add the index response as well
-                for indexPath in model.indexPathPatterns {
-                    let indexDescriptor = RKResponseDescriptor(mapping: model.entityMapping, method: .GET, pathPattern: indexPath, keyPath: keyPath, statusCodes: success)
-                    objectManager.addResponseDescriptor(indexDescriptor)
-                }
-                
-                //also create a request descriptor
-                objectManager.addRequestDescriptor(RKRequestDescriptor(mapping: model.dictionaryMapping, objectClass: model as! AnyObject.Type, rootKeyPath: "data", method: .Any))
-            }
-        }
+//        }
+        
+        // configure models
+        models.forEach { model in model.addToObjectManager(objectManager) }
         
         //add another response for session control
-        let loginDescriptor = RKResponseDescriptor(mapping: User.entityMapping, method: .Any, pathPattern: User.currentUserPathPattern, keyPath: keyPath, statusCodes: success)
-        objectManager.addResponseDescriptor(loginDescriptor)
+//        let loginDescriptor = RKResponseDescriptor(mapping: UserModel().entityMapping, method: .Any, pathPattern: User.currentUserPathPattern, keyPath: keyPath, statusCodes: success)
+        objectManager.addResponseDescriptor(UserModel.loginResponseDescriptor)
         
         //add another response for errors
         for statusCodeSet in [RKStatusCodeIndexSetForClass(.ClientError), RKStatusCodeIndexSetForClass(.ServerError)] {
@@ -128,8 +131,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let statusResponseDescriptor = RKResponseDescriptor(mapping: statusMapping, method: .GET, pathPattern: "", keyPath: "data", statusCodes: RKStatusCodeIndexSetForClass(.Successful))
         objectManager.addResponseDescriptor(statusResponseDescriptor)
         
-        objectManager.HTTPClient.setDefaultHeader("X-User-Email", value: User.lastUserEmail)
-        objectManager.HTTPClient.setDefaultHeader("X-User-Token", value: User.lastUserToken)
+        objectManager.HTTPClient.setDefaultHeader("X-User-Email", value: UserModel.lastUserEmail)
+        objectManager.HTTPClient.setDefaultHeader("X-User-Token", value: UserModel.lastUserToken)
         
         return true
     }

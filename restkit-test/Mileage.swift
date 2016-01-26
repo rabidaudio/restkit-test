@@ -10,21 +10,21 @@ import Foundation
 import RestKit
 
 
-class Mileage: NSManagedObject, Model {
+class Mileage: NSManagedObject {
     
-    static var indexPathPatterns = ["mileages", "vehicles/:vin/mileages"]
-    
-    static var mappings: [NSObject: AnyObject]! = [
-        "id": "id",
-        // 'value' conflicts with NSMangedObject
-        "value": "miles",
-        "timestamp": "timestamp",
-        // using field source_ as string field, source as backed by enum
-        "source": "source_",
-        "vehicle_vin": "vin",
-        "created_at": "createdAt",
-        "updated_at": "updatedAt"
-    ]
+//    static var indexPathPatterns = ["mileages", "vehicles/:vin/mileages"]
+//    
+//    static var mappings: [NSObject: AnyObject]! = [
+//        "id": "id",
+//        // 'value' conflicts with NSMangedObject
+//        "value": "miles",
+//        "timestamp": "timestamp",
+//        // using field source_ as string field, source as backed by enum
+//        "source": "source_",
+//        "vehicle_vin": "vin",
+//        "created_at": "createdAt",
+//        "updated_at": "updatedAt"
+//    ]
     
     enum Source: String {
         case Unknown = "unknown"
@@ -49,23 +49,23 @@ class Mileage: NSManagedObject, Model {
 //    static var pathPatterns = ["mileages", "mileages/:id", "vehicles/:vin/mileages"]
     
     // create an RKEntityMapping for yourself, mapping keys and values and setting id and relationships if neccessary
-    static var entityMapping: RKEntityMapping {
-        let mapping = RKEntityMapping(forEntityForName: "Mileage", inManagedObjectStore: RKManagedObjectStore.defaultStore())
-        mapping.addAttributeMappingsFromDictionary(mappings)
-        mapping.identificationAttributes = ["id"]
-        
-        // when only an ID for another object is returned, you need to add a transient attribute in core data, add a mapping for the field as well, and then call addConnectionForRelationship
-        mapping.addConnectionForRelationship("vehicle", connectedBy: ["vin": "vin"])
-        return mapping
-    }
+//    static var entityMapping: RKEntityMapping {
+//        let mapping = RKEntityMapping(forEntityForName: "Mileage", inManagedObjectStore: RKManagedObjectStore.defaultStore())
+//        mapping.addAttributeMappingsFromDictionary(mappings)
+//        mapping.identificationAttributes = ["id"]
+//        
+//        // when only an ID for another object is returned, you need to add a transient attribute in core data, add a mapping for the field as well, and then call addConnectionForRelationship
+//        mapping.addConnectionForRelationship("vehicle", connectedBy: ["vin": "vin"])
+//        return mapping
+//    }
     
-    static var dictionaryMapping: RKObjectMapping {
-        return defaultDictionaryMapping()
-    }
-    
-    static var routeSet: [RKRoute!] {
-        return defaultRouteSet("mileages")
-    }
+//    static var dictionaryMapping: RKObjectMapping {
+//        return defaultDictionaryMapping()
+//    }
+//    
+//    static var routeSet: [RKRoute!] {
+//        return defaultRouteSet("mileages")
+//    }
     
     
 //    static var routeSet = [
@@ -77,7 +77,29 @@ class Mileage: NSManagedObject, Model {
 //        RKRoute(withClass: Mileage.self, pathPattern: "mileages", method: .POST) //create
 //    ]
     
+    static let model = MileageModel()
+}
+
+class MileageModel: Model {
     
+    private init(){
+        super.init(type: Mileage.self,entityName: "Mileage", resourceName: "mileages", indexPaths: ["mileages", "vehicles/:vin/mileages"], paramMappings: [
+            "id": "id",
+            // 'value' conflicts with NSMangedObject
+            "value": "miles",
+            "timestamp": "timestamp",
+            // using field source_ as string field, source as backed by enum
+            "source": "source_",
+            "vehicle_vin": "vin",
+            "created_at": "createdAt",
+            "updated_at": "updatedAt"
+            ])
+        
+    }
+    
+    override func addRelationships(mapping: RKEntityMapping) {
+        mapping.addConnectionForRelationship("vehicle", connectedBy: ["vin": "vin"])
+    }
 }
 
 extension Mileage {

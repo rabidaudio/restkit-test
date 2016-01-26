@@ -17,7 +17,7 @@ class LoadingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if !User.loggedIn {
+        if !UserModel.loggedIn {
             //todo log out performSegueWithIdentifier(<#T##identifier: String##String#>, sender: self)
         }
         
@@ -33,7 +33,7 @@ class LoadingViewController: UIViewController {
     func loadVehicles() {
         let manager = RKObjectManager.sharedManager()
         
-        User.fetchCurrentUser().then { user in
+        UserModel.fetchCurrentUser().then { user in
             return manager.getAllObjectsForPathPatternWithPromise("vehicles", parameters: ["user_email": user!.email!])
         }.then { response -> Vehicle? in
 //        manager.getObjectsAtPathWithPromise("vehicles", parameters: ["user_email": email]).then { response -> Void in
@@ -72,7 +72,7 @@ class LoadingViewController: UIViewController {
 //            m.setValue(num, forKey: "miles")
             m.miles = 300_000
             m.timestamp = NSDate()
-            m.user = User.currentUser
+            m.user = UserModel.currentUser
             m.source = .UserSubmitted
             let vehicle = mileages.first!.vehicle
             m.vehicle = vehicle
