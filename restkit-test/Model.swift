@@ -9,20 +9,21 @@
 import Foundation
 import RestKit
 
-// Helpers to make connecting our CoreData entities with RestKit a bit easier. Make sure
-// *all* models from the API inherit Model.
-//protocol Model {
-//    static var mappings: [NSObject: AnyObject]! { get }
-//    static var entityMapping: RKEntityMapping { get }
-//    static var dictionaryMapping: RKObjectMapping { get }
-//    static var routeSet: [RKRoute!] { get }
-//    static var indexPathPatterns: [String] { get }
-//}
-
+// This is a helper class for initialzing CoreData/RestKit for our models.
+//
+// Children can simply set a private initializer which calls the big initializer
+// below. If the model has relationships to set, it should override `addRelationships()`.
+//
+// The defaults are designed to be pretty standard. If the model significantly
+// deviates from the defaults, it can override other properties.
+// Ultimately it just needs to generate the correct routes and request and response
+// descriptors.
 class Model {
     
+    // the object class of the model
     let type: NSManagedObject.Type
     
+    // the mappings of keys from their JSON name to their CoreData entity attribute
     let paramMappings: [String: String]
     
     // the name of the Core Data entity (e.g. `User`)
@@ -34,14 +35,18 @@ class Model {
     // the set of attributes that uniquely identify a model
     let idAttributes: [String]
     
-    // a list of path patterns that return a collection, e.g. `posts` or `users/1/posts`
+    // a list of path patterns that return a collection, e.g. ["posts", "users/1/posts"] (note no leading slash!)
     let indexPaths: [String]
     
     let keyPath: String
     
-    init(type: NSManagedObject.Type, entityName: String, resourceName: String, idAttributes: [String] = ["id"], indexPaths: [String]? = nil, keyPath: String = "data", paramMappings: [String: String]){
+    //todo we could simplify a lot of this:
+    //  https://github.com/sammy-SC/Pluralize.swift
+    //  https://github.com/travisjeffery/NSDictionary-TRVSUnderscoreCamelCaseAdditions
+    
+    init(type: NSManagedObject.Type, resourceName: String, idAttributes: [String] = ["id"], indexPaths: [String]? = nil, keyPath: String = "data", paramMappings: [String: String]){
         self.type = type
-        self.entityName = entityName
+        self.entityName = type.entityName()
         self.resourceName = resourceName
         self.idAttributes = idAttributes
         self.indexPaths = indexPaths == nil ? [resourceName] : indexPaths!
@@ -49,7 +54,7 @@ class Model {
         self.paramMappings = paramMappings
     }
     
-    final var entityMapping: RKEntityMapping {
+    var entityMapping: RKEntityMapping {
         let mapping = RKEntityMapping(forEntityForName: entityName, inManagedObjectStore: RKManagedObjectStore.defaultStore())
         mapping.addAttributeMappingsFromDictionary(paramMappings)
         mapping.identificationAttributes = idAttributes
@@ -63,7 +68,7 @@ class Model {
         return [RKRequestDescriptor(mapping: mapping, objectClass: type, rootKeyPath: keyPath, method: .Any)]
     }
     
-    final var responseDescriptors: [RKResponseDescriptor] {
+    var responseDescriptors: [RKResponseDescriptor] {
         var descriptors = [RKResponseDescriptor]()
         let successfulCodes = RKStatusCodeIndexSetForClass(.Successful)
         for route in routeSet {
@@ -85,11 +90,16 @@ class Model {
         manager.addResponseDescriptorsFromArray(responseDescriptors)
     }
     
-    // override this method to define relationships with other objects.
-    //  for example, if the other object is included in the response:
-    //      mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "make_model_year", toKeyPath: "makeModelYear", withMapping: MakeModelYearModel.entityMapping))
-    //  or if only the ID is included:
-    //      mapping.addConnectionForRelationship("vehicle", connectedBy: ["vin": "vin"])
+    // Override this method to define relationships with other models.
+    //
+    //  == If the other object is included in the response ==
+    //  Simply add a relationship mapping to the property:
+    //      mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "user", toKeyPath: "user", withMapping: User.model.entityMapping))
+    //  == If only the ID is included ==
+    //  1. Add a property to the source entity in CoreData and mark it as "transient" (e.g. Post.userId)
+    //  2. Include the property in your paramMappings (e.g. PostParamMappings = ["user_id": "userId"])
+    //  3. Add a relationship connection:
+    //      postMapping.addConnectionForRelationship("user", connectedBy: ["userId": "id"])
     func addRelationships(mapping: RKEntityMapping) {
         // default no-op
     }
@@ -116,65 +126,7 @@ class Model {
         return reverseMapping
     }
 }
-//
-//extension Model {
-//    
-////    static func defaultEntityMapping(entityName: String, idAttribute: String = "id") -> RKEntityMapping {
-//    static func entityMapping() -> RKEntityMapping {
-//        let mapping = RKEntityMapping(forEntityForName: entityName(), inManagedObjectStore: RKManagedObjectStore.defaultStore())
-//        mapping.addAttributeMappingsFromDictionary(mappings)
-//        mapping.identificationAttributes = ["id"]
-//        return mapping
-//    }
-//    
-////    static func defaultDictionaryMapping() -> RKObjectMapping {
-//    static func getDictionaryMapping() -> RKObjectMapping {
-//        let mapping = RKObjectMapping(forClass: NSMutableDictionary.self)
-//        var reverseMapping = [NSObject: AnyObject]()
-//        mappings.forEach { key, val in reverseMapping[val as! String] = key }
-//        mapping.addAttributeMappingsFromDictionary(reverseMapping)
-//        return mapping
-//    }
-//    
-//    // run a local CoreData query only. Use with care!
-//    static func localQueryFor<T>(entityName: String, withPredicate: String?, andArguments: [String]?) -> [T]{
-//        let context = RKManagedObjectStore.defaultStore().mainQueueManagedObjectContext
-//        let request = NSFetchRequest(entityName: entityName)
-//        if(withPredicate != nil){
-//            request.predicate = NSPredicate(format: withPredicate!, argumentArray: andArguments)
-//        }
-//        if let results = try? context.executeFetchRequest(request){
-//            let casted = results.map { $0 as! T }
-//            return casted
-//        }else{
-//            return []
-//        }
-//    }
-//    
-//    // default Rails ":resources"-style routes for a given model. Note that index methods aren't included, as restkit
-//    //    uses routes only for single object operations. You need to specify the path (e.g. `vehicles`) to use for getObjects*() calls
-//    static func defaultRouteSet(resourceName: String, idName: String = "id") -> [RKRoute!] {
-//        return [
-//            RKRoute(withClass: self as! AnyObject.Type, pathPattern: "\(resourceName)", method: .POST),               //create
-//            RKRoute(withClass: self as! AnyObject.Type, pathPattern: "\(resourceName)/:\(idName)", method: .GET),     //show
-//            RKRoute(withClass: self as! AnyObject.Type, pathPattern: "\(resourceName)/:\(idName)", method: .PUT),     //update
-//            RKRoute(withClass: self as! AnyObject.Type, pathPattern: "\(resourceName)/:\(idName)", method: .DELETE)   //destroy
-//        ]
-//    }
-//    
-//    private static func entityName() -> String {
-//        // NSStringFromClass is available in Swift 2.
-//        // If the data model is in a framework, then
-//        // the module name needs to be stripped off.
-//        //
-//        // Example:
-//        //   FooBar.Engine
-//        //   Engine
-//        let name = NSStringFromClass(self as! AnyObject.Type)
-//        return name.componentsSeparatedByString(".").last!
-//    }
-//}
-////
+
 //  === Extensions to NSObject for Model instantiation ===
 //
 // This takes some explaining.
