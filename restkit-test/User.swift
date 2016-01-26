@@ -14,19 +14,22 @@ class User: NSManagedObject, Model {
     
 //    static var pathPatterns = ["users", "users/:id", "users/current"]
     
+    static var mappings: [NSObject: AnyObject]! = [
+        "id": "id",
+        "first_name": "firstName",
+        "last_name": "lastName",
+        "email": "email",
+        "authentication_token": "authToken",
+        "created_at": "createdAt",
+        "updated_at": "updatedAt"
+    ]
+    
     static var entityMapping: RKEntityMapping {
-        let mapping = RKEntityMapping(forEntityForName: "User", inManagedObjectStore: RKManagedObjectStore.defaultStore())
-        mapping.addAttributeMappingsFromDictionary([
-            "id": "id",
-            "first_name": "firstName",
-            "last_name": "lastName",
-            "email": "email",
-            "authentication_token": "authToken",
-            "created_at": "createdAt",
-            "updated_at": "updatedAt"
-        ])
-        mapping.identificationAttributes = ["id"]
-        return mapping
+        return defaultEntityMapping("User")
+    }
+    
+    static var dictionaryMapping: RKObjectMapping {
+        return defaultDictionaryMapping()
     }
     
     static var routeSet = [

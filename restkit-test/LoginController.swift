@@ -32,6 +32,9 @@ class LoginController: UIViewController {
             manager.getObjectWithPromise(nil, path: "", parameters: nil).then { data -> Void in
                 self.continueToApp()
             }.error { err -> Void in
+                if let e = FixdError.getErrorInfo(err) {
+                    print("data: ", e)
+                }
                 self.emailField.text = User.lastUserEmail //currentUser!.email // go ahead and fill in their email if we have it
                 self.showForm(true)
             }
@@ -63,7 +66,11 @@ class LoginController: UIViewController {
                 self.loginButton.hidden = false
                 self.loadingIndicator.hidden = true
             }.error { err in
-                print(err)
+                if FixdError.isUnauthenticated(err){
+                    // show invalid login
+                }else{
+                    FixdError.handleError(err)
+                }
             }
         }
     }

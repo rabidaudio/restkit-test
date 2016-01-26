@@ -14,21 +14,27 @@ class Vehicle: NSManagedObject, Model {
 
 //    static var pathPatterns = ["vehicles", "vehicles/:vin"]
     
+    static var mappings: [NSObject: AnyObject]! = [
+        "vin": "vin",
+        "user_submitted": "userSubmitted",
+        "created_at": "createdAt",
+        "updated_at": "updatedAt"
+    ]
+    
     // create an RKEntityMapping for yourself, mapping keys and values and setting id and relationships if neccessary
     static var entityMapping: RKEntityMapping {
         let mapping = RKEntityMapping(forEntityForName: "Vehicle", inManagedObjectStore: RKManagedObjectStore.defaultStore())
-        mapping.addAttributeMappingsFromDictionary([
-            "vin": "vin",
-            "user_submitted": "userSubmitted",
-            "created_at": "createdAt",
-            "updated_at": "updatedAt"
-            ])
+        mapping.addAttributeMappingsFromDictionary(mappings)
         mapping.identificationAttributes = ["vin"]
         // vehicle objects include their MakeModelYear and User objects
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "make_model_year", toKeyPath: "makeModelYear", withMapping: MakeModelYear.entityMapping))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "users", toKeyPath: "users", withMapping: User.entityMapping))
         
         return mapping
+    }
+    
+    static var dictionaryMapping: RKObjectMapping {
+        return defaultDictionaryMapping()
     }
     
     static var routeSet = [

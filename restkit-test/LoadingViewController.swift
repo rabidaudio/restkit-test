@@ -101,8 +101,8 @@ class LoadingViewController: UIViewController {
             }else{
                 throw FixdError.Fuck
             }
-        }.error { err in
-            print("err", err)
+        }.error(FixdError.handleError)
+            
             
 //            let context = AppDelegate.context()
             
@@ -134,7 +134,7 @@ class LoadingViewController: UIViewController {
 //            }catch {
 //                print("problem fetching: \(error)")
 //            }
-        }
+//        }
 //        manager.getObject(nil, path: "vehicles/4T1BG22K1YU653452", parameters: nil, success: gotVehicles, failure: failedGetVehicles)
     }
 }

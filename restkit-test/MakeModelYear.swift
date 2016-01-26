@@ -16,21 +16,26 @@ class MakeModelYear: NSManagedObject, Model {
 //    static var name = "MakeModelYear"
 //    static var pathPatterns = ["make_model_years", "make_model_years/:id"]
     
+    static var indexPathPatterns = ["make_model_years"]
+    
+    static var mappings: [NSObject: AnyObject]! = [
+        "id": "id",
+        "make": "make",
+        "model": "model",
+        "year": "year",
+        "body_type": "bodyType",
+        "edmunds_id": "edmundsId",
+        "created_at": "createdAt",
+        "updated_at": "updatedAt"
+    ]
+    
     // create an RKEntityMapping for yourself, mapping keys and values and setting id and relationships if neccessary
     static var entityMapping: RKEntityMapping {
-        let mapping = RKEntityMapping(forEntityForName: "MakeModelYear", inManagedObjectStore: RKManagedObjectStore.defaultStore())
-        mapping.addAttributeMappingsFromDictionary([
-            "id": "id",
-            "make": "make",
-            "model": "model",
-            "year": "year",
-            "body_type": "bodyType",
-            "edmunds_id": "edmundsId",
-            "created_at": "createdAt",
-            "updated_at": "updatedAt"
-        ])
-        mapping.identificationAttributes = ["id"]
-        return mapping
+        return defaultEntityMapping("MakeModelYear")
+    }
+    
+    static var dictionaryMapping: RKObjectMapping {
+        return defaultDictionaryMapping()
     }
     
     
@@ -42,8 +47,6 @@ class MakeModelYear: NSManagedObject, Model {
         RKRoute(withClass: MakeModelYear.self, pathPattern: "make_model_years/:id", method: .DELETE), //delete
         RKRoute(withClass: MakeModelYear.self, pathPattern: "make_model_years", method: .POST) //create
     ]
-    
-    static var indexPathPatterns = ["make_model_years"]
     
 //    static var idAttributeName = "id"
 //    static var attributeMappings :[NSObject:AnyObject] = [

@@ -12,12 +12,30 @@ import RestKit
 // Helpers to make connecting our CoreData entities with RestKit a bit easier. Make sure
 // *all* models from the API inherit Model.
 protocol Model {
+    // a list of json keys mapped to their Core Data attribute name
+    static var mappings: [NSObject: AnyObject]! { get }
     static var entityMapping: RKEntityMapping { get }
+    static var dictionaryMapping: RKObjectMapping { get }
     static var routeSet: [RKRoute!] { get }
     static var indexPathPatterns: [String] { get }
 }
 
 extension Model {
+    
+    static func defaultEntityMapping(entityName: String, idAttribute: String = "id") -> RKEntityMapping {
+        let mapping = RKEntityMapping(forEntityForName: entityName, inManagedObjectStore: RKManagedObjectStore.defaultStore())
+        mapping.addAttributeMappingsFromDictionary(mappings)
+        mapping.identificationAttributes = [idAttribute]
+        return mapping
+    }
+    
+    static func defaultDictionaryMapping() -> RKObjectMapping {
+        let mapping = RKObjectMapping(forClass: NSMutableDictionary.self)
+        var reverseMapping = [NSObject: AnyObject]()
+        mappings.forEach { key, val in reverseMapping[val as! String] = key }
+        mapping.addAttributeMappingsFromDictionary(reverseMapping)
+        return mapping
+    }
     
     // run a local CoreData query only. Use with care!
     static func localQueryFor<T>(entityName: String, withPredicate: String?, andArguments: [String]?) -> [T]{

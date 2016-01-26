@@ -14,11 +14,8 @@ import PromiseKit
 //extra methods on user for handling sessions
 extension User {
     
-    static var currentUserPathPattern = "users/current"
-    
-//    static var loginResponseDescriptor: RKResponseDescriptor {
-//        let r = RKResponseDescriptor(
-//    }
+    // nonobjc required for `static let`: http://stackoverflow.com/a/32831677
+    @nonobjc static let currentUserPathPattern = "users/current"
     
     //hidden cached value of current user object
     private static var _currentUser: User?

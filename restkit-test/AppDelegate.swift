@@ -82,6 +82,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let indexDescriptor = RKResponseDescriptor(mapping: model.entityMapping, method: .GET, pathPattern: indexPath, keyPath: keyPath, statusCodes: success)
                     objectManager.addResponseDescriptor(indexDescriptor)
                 }
+                
+                //also create a request descriptor
+                objectManager.addRequestDescriptor(RKRequestDescriptor(mapping: model.dictionaryMapping, objectClass: model as! AnyObject.Type, rootKeyPath: "data", method: .Any))
             }
         }
         
@@ -89,6 +92,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let loginDescriptor = RKResponseDescriptor(mapping: User.entityMapping, method: .Any, pathPattern: User.currentUserPathPattern, keyPath: keyPath, statusCodes: success)
         objectManager.addResponseDescriptor(loginDescriptor)
         
+        //add another response for errors
+        for statusCodeSet in [RKStatusCodeIndexSetForClass(.ClientError), RKStatusCodeIndexSetForClass(.ServerError)] {
+            let errorMapping = RKObjectMapping(forClass: RKErrorMessage.self)
+            //map the details into userInfo (thanks to: http://stackoverflow.com/a/30254286)
+            errorMapping.addPropertyMapping(RKAttributeMapping(fromKeyPath: "message", toKeyPath: "errorMessage"))
+            errorMapping.addPropertyMapping(RKAttributeMapping(fromKeyPath: nil, toKeyPath: "userInfo"))
+            
+            let errorDesriptor = RKResponseDescriptor(mapping: errorMapping, method: .Any, pathPattern: nil, keyPath: "error", statusCodes: statusCodeSet)
+            objectManager.addResponseDescriptor(errorDesriptor)
+        }
+        
+
         
 //        let loginMapping = RKObjectMapping(forClass: NSMutableDictionary.self)
 //        loginMapping.addAttributeMappingsFromDictionary(["authentication_token": "authToken"])
@@ -119,3 +134,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
+
+//extension NSError {
+//    func FixdUserInfo() -> [NSObject: AnyObject]? {
+//        return userInfo[RKObjectMapperErrorObjectsKey]?.firstObject as? RKErrorMessage
+//    }
+//}
+
+//class StringToEnumTransformer: NSObject, RKValueTransforming {
+//    @objc func transformValue(inputValue: AnyObject!, toValue outputValue: AutoreleasingUnsafeMutablePointer<AnyObject?>, ofClass outputValueClass: AnyClass!) throws {
+//        let rawValue = inputValue as! String
+//        let outClass = outputValueClass as! StringEnum.Type
+//        let outputEnum = outClass.init(rawValue: rawValue)
+//        if outputEnum == nil {
+//            outputValue.memory = (outClass.defaultValue as! AnyObject?)
+//        }else{
+//            outputValue.memory = (outputEnum as! AnyObject)
+//        }
+//    }
+//    
+//    @objc func validateTransformationFromClass(inputValueClass: AnyClass!, toClass outputValueClass: AnyClass!) -> Bool {
+//        return (inputValueClass as? String.Type != nil) && (outputValueClass as? StringEnum.Type != nil) && (outputValueClass as? String.Type != nil)
+//    }
+//}
+//
+//protocol StringEnum {
+//    init?(rawValue: String) //the raw value initializer (enums have it, no need to implement)
+//    static var defaultValue: StringEnum? { get } // the value to return if given an invalid string input. Can be nil
+//}
