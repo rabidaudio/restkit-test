@@ -12,7 +12,7 @@ import RestKit
 
 class Vehicle: NSManagedObject, Model {
 
-    static var pathPatterns = ["vehicles", "vehicles/:vin"]
+//    static var pathPatterns = ["vehicles", "vehicles/:vin"]
     
     // create an RKEntityMapping for yourself, mapping keys and values and setting id and relationships if neccessary
     static var entityMapping: RKEntityMapping {
@@ -30,6 +30,17 @@ class Vehicle: NSManagedObject, Model {
         
         return mapping
     }
+    
+    static var routeSet = [
+//        RKRoute(withClass: Vehicle.self, pathPattern: "vehicles", method: .GET), //index
+        //        RKRoute(relationshipName: <#T##String!#>, objectClass: <#T##AnyClass!#>, pathPattern: "vehicles/:vin/mileages", method: .GET)
+        RKRoute(withClass: Vehicle.self, pathPattern: "vehicles/:id", method: .GET), //show
+        RKRoute(withClass: Vehicle.self, pathPattern: "vehicles/:id", method: .PUT), //update
+        RKRoute(withClass: Vehicle.self, pathPattern: "vehicles/:id", method: .DELETE), //delete
+        RKRoute(withClass: Vehicle.self, pathPattern: "vehicles", method: .POST) //create
+    ]
+    
+    static var indexPathPatterns = ["vehicles"]
 
 }
 

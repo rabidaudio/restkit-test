@@ -13,4 +13,6 @@ import RestKit
 enum FixdError : ErrorType {
     
     case InvalidParseResult(result: RKMappingResult)
+    
+    case Fuck
 }

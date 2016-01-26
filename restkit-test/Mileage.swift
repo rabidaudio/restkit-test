@@ -11,8 +11,28 @@ import RestKit
 
 
 class Mileage: NSManagedObject, Model {
+    
+    enum Source: String {
+        case Unknown = "unknown"
+        case UserSubmitted = "user_submitted"
+        case MilesWithMIL = "miles_since_mil"
+        case MilesSinceClear = "miles_since_cleared"
+    }
+    
+    var source: Source {
+        get {
+            if let s = self.source_, let ss = Source(rawValue: s) {
+                return ss
+            }else{
+                return .Unknown
+            }
+        }
+        set {
+            self.source_ = newValue.rawValue
+        }
+    }
 
-    static var pathPatterns = ["mileages", "mileages/:id", "vehicles/:vin/mileages"]
+//    static var pathPatterns = ["mileages", "mileages/:id", "vehicles/:vin/mileages"]
     
     // create an RKEntityMapping for yourself, mapping keys and values and setting id and relationships if neccessary
     static var entityMapping: RKEntityMapping {
@@ -22,13 +42,34 @@ class Mileage: NSManagedObject, Model {
             // 'value' conflicts with NSMangedObject
             "value": "miles",
             "timestamp": "timestamp",
-            "source": "source",
+            // using field source_ as string field, source as backed by enum
+            "source": "source_",
+            "vehicle_vin": "vin",
             "created_at": "createdAt",
             "updated_at": "updatedAt"
             ])
         mapping.identificationAttributes = ["id"]
+        
+        // when only an ID for another object is returned, you need to add a transient attribute in core data, add a mapping for the field as well, and then call addConnectionForRelationship
+        mapping.addConnectionForRelationship("vehicle", connectedBy: ["vin": "vin"])
         return mapping
     }
+    
+    static var routeSet: [RKRoute!] {
+        return defaultRouteSet("mileages")
+    }
+    
+    
+//    static var routeSet = [
+////        RKRoute(withClass: Mileage.self, pathPattern: "mileages", method: .GET), //index
+////        RKRoute(relationshipName: <#T##String!#>, objectClass: <#T##AnyClass!#>, pathPattern: "vehicles/:vin/mileages", method: .GET)
+//        RKRoute(withClass: Mileage.self, pathPattern: "mileages/:id", method: .GET), //show
+//        RKRoute(withClass: Mileage.self, pathPattern: "mileages/:id", method: .PUT), //update
+//        RKRoute(withClass: Mileage.self, pathPattern: "mileages/:id", method: .DELETE), //delete
+//        RKRoute(withClass: Mileage.self, pathPattern: "mileages", method: .POST) //create
+//    ]
+    
+    static var indexPathPatterns = ["mileages", "vehicles/:vin/mileages"]
 }
 
 extension Mileage {
@@ -36,7 +77,7 @@ extension Mileage {
     @NSManaged var id: NSNumber?
     @NSManaged var miles: NSNumber?
     @NSManaged var timestamp: NSDate?
-    @NSManaged var source: String?
+    @NSManaged var source_: String?
     @NSManaged var vehicle: Vehicle?
     @NSManaged var user: NSManagedObject?
     

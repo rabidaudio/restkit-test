@@ -33,7 +33,7 @@ class LoadingViewController: UIViewController {
     func loadVehicles() {
         let manager = RKObjectManager.sharedManager()
         
-        User.currentUser().then { user in
+        User.fetchCurrentUser().then { user in
             return manager.getAllObjectsForPathPatternWithPromise("vehicles", parameters: ["user_email": user!.email!])
         }.then { response -> Vehicle? in
 //        manager.getObjectsAtPathWithPromise("vehicles", parameters: ["user_email": email]).then { response -> Void in
@@ -55,9 +55,51 @@ class LoadingViewController: UIViewController {
             }else{
                 return Promise<PagedResponse>(PagedResponse(paginator: nil, results: [], page: 0))
             }
+        }.then { response -> Promise<Response> in
+            guard let mileages = response.results as! [Mileage]? else {
+                return Promise(Response(operation: nil, result: nil))
+            }
+            for mileage in mileages {
+                print("mileage: ", mileage.miles, mileage.vehicle?.vin)
+            }
+            
+//            let m: Mileage = Mileage.build()
+            let m = Mileage(insert: true)
+            
+            
+//            let num = NSNumber(integer: 10)
+//            m.miles = num
+//            m.setValue(num, forKey: "miles")
+            m.miles = 300_000
+            m.timestamp = NSDate()
+            m.user = User.currentUser
+            m.source = .UserSubmitted
+            let vehicle = mileages.first!.vehicle
+            m.vehicle = vehicle
+            print(vehicle, m.vehicle, vehicle!.vin)
+            return manager.postObjectWithPromise(m, path: nil, parameters: ["vehicle_vin": vehicle!.vin!])
+        }.then { response -> Promise<Response> in
+            if let mileage: Mileage = response.firstResult() {
+                print("Created Mileage!", mileage)
+                mileage.miles = 10_000
+                return manager.putObjectWithPromise(mileage, path: nil, parameters: nil)
+            }else{
+                print("oh shit")
+                throw FixdError.Fuck
+            }
+        }.then { response -> Promise<Response> in
+            if let mileage: Mileage = response.firstResult() {
+                print("Updated Mileage", mileage.miles)
+                
+                return manager.deleteObjectWithPromise(mileage, path: nil, parameters: nil)
+            }else{
+                throw FixdError.Fuck
+            }
         }.then { response -> Void in
-            for mileage in response.results as! [Mileage] {
-                print("mileage: ", mileage.miles)
+            if let mileage: Mileage = response.firstResult() {
+                print("Deleted!", mileage)
+            }else{
+                throw FixdError.Fuck
             }
         }.error { err in
             print("err", err)

@@ -18,6 +18,8 @@ import PromiseKit
 
 extension RKObjectManager {
     
+    //todo refactor to return only data item using generics
+    
     func managedObjectRequestOperationWithRequestAndPromsise(request: NSURLRequest!, managedObjectContext: NSManagedObjectContext!) -> Promise<Response> {
         return Promise { fulfill, reject in
             managedObjectRequestOperationWithRequest(request, managedObjectContext: managedObjectContext, success: { fulfill(Response(operation: $0, result: $1)) }, failure:  { reject($1) })
@@ -31,18 +33,31 @@ extension RKObjectManager {
     }
     
     func getAllObjectsForPathPatternWithPromise(path: String!, parameters: [NSObject : AnyObject]!) -> Promise<PagedResponse> {
-        var pathPattern = HTTPClient.requestWithMethod("GET", path: path, parameters: parameters).URL!.absoluteString
-        pathPattern.removeRange(pathPattern.rangeOfString(baseURL.absoluteString)!)
-        let paginator = paginatorWithPathPattern(pathPattern)
+//        let requestUrl = HTTPClient.requestWithMethod("GET", path: path, parameters: parameters).URL!
+//        let completeUrl = NSURLComponents(URL: requestUrl, resolvingAgainstBaseURL: false)!
+//        completeUrl.queryItems!.append(NSURLQueryItem(name: "per_page", value: ":perPage"))
+//        completeUrl.queryItems!.append(NSURLQueryItem(name: "page", value: ":currentPage"))
+//        var pathPattern = completeUrl.URL!.absoluteString
+//        pathPattern.removeRange(pathPattern.rangeOfString(baseURL.absoluteString)!)
+        
+//        let requestUrl = HTTPClient.requestWithMethod("GET", path: path, parameters: parameters).URL!
+//        let pathPattern = requestUrl.absoluteString
+//        let paginator = paginatorWithPathPattern(pathPattern)
+        
+        let paginator = paginatorWithPathPattern(path+"?per_page=:perPage&page=:currentPage", parameters: parameters)
+//        print(paginator.patternURL) //  /articles?per_page=:perPage&page_number=:currentPage
         return Promise { fulfill, reject in
+            var combinedResults: [AnyObject] = []
             paginator.setCompletionBlockWithSuccess({ (paginator, results, page) -> Void in
+                print(paginator, "on page \(paginator.currentPage) of \(paginator.pageCount) for \(paginator.objectCount) objects. has next page? \(paginator.hasNextPage). result page number: \(page)")
+                combinedResults.appendContentsOf(results)
                 if paginator.hasNextPage {
                     paginator.loadNextPage()
                 }else {
-                    fulfill(PagedResponse(paginator: paginator, results: results, page: page))
+                    fulfill(PagedResponse(paginator: paginator, results: combinedResults, page: page))
                 }
             }, failure: { reject($1) } )
-            paginator.loadPage(0)
+            paginator.loadPage(1)
         }
     }
     

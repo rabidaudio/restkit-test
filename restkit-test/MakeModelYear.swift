@@ -13,8 +13,8 @@ import RestKit
 class MakeModelYear: NSManagedObject, Model {
 
     
-    static var name = "MakeModelYear"
-    static var pathPatterns = ["make_model_years", "make_model_years/:id"]
+//    static var name = "MakeModelYear"
+//    static var pathPatterns = ["make_model_years", "make_model_years/:id"]
     
     // create an RKEntityMapping for yourself, mapping keys and values and setting id and relationships if neccessary
     static var entityMapping: RKEntityMapping {
@@ -32,6 +32,19 @@ class MakeModelYear: NSManagedObject, Model {
         mapping.identificationAttributes = ["id"]
         return mapping
     }
+    
+    
+    static var routeSet = [
+//        RKRoute(withClass: MakeModelYear.self, pathPattern: "make_model_years", method: .GET), //index
+        //        RKRoute(relationshipName: <#T##String!#>, objectClass: <#T##AnyClass!#>, pathPattern: "vehicles/:vin/mileages", method: .GET)
+        RKRoute(withClass: MakeModelYear.self, pathPattern: "make_model_years/:id", method: .GET), //show
+        RKRoute(withClass: MakeModelYear.self, pathPattern: "make_model_years/:id", method: .PUT), //update
+        RKRoute(withClass: MakeModelYear.self, pathPattern: "make_model_years/:id", method: .DELETE), //delete
+        RKRoute(withClass: MakeModelYear.self, pathPattern: "make_model_years", method: .POST) //create
+    ]
+    
+    static var indexPathPatterns = ["make_model_years"]
+    
 //    static var idAttributeName = "id"
 //    static var attributeMappings :[NSObject:AnyObject] = [
 //        "id": "id",

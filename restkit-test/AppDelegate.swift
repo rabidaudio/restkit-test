@@ -27,9 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ]
     
     // make context globally accessable
-    static func context() -> NSManagedObjectContext {
-        return RKManagedObjectStore.defaultStore().mainQueueManagedObjectContext // persistentStoreManagedObjectContext <-- use this for off-thread
-    }
+//    static func context() -> NSManagedObjectContext {
+//        return RKManagedObjectStore.defaultStore().mainQueueManagedObjectContext // persistentStoreManagedObjectContext <-- use this for off-thread
+//    }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -60,14 +60,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         objectManager.requestSerializationMIMEType = RKMIMETypeJSON
         
+        let success = RKStatusCodeIndexSetForClass(.Successful)
+        let keyPath = "data" // the ket path for all objects in APIv2
+        
         for model in models {
-            for pattern in model.pathPatterns {
-//                let requestDescriptor = RKRequestDescriptor(mapping: model.entityMapping, objectClass: (model as! AnyClass), rootKeyPath: "data", method: .Any)
-                let responseDescriptor = RKResponseDescriptor(mapping: model.entityMapping, method: .Any, pathPattern: pattern, keyPath: "data", statusCodes: RKStatusCodeIndexSetForClass(.Successful))
-//                objectManager.addRequestDescriptor(requestDescriptor)
-                objectManager.addResponseDescriptor(responseDescriptor)
+//            for pattern in model.pathPatterns {
+////                let requestDescriptor = RKRequestDescriptor(mapping: model.entityMapping, objectClass: (model as! AnyClass), rootKeyPath: "data", method: .Any)
+//                let responseDescriptor = RKResponseDescriptor(mapping: model.entityMapping, method: .Any, pathPattern: pattern, keyPath: "data", statusCodes: RKStatusCodeIndexSetForClass(.Successful))
+////                objectManager.addRequestDescriptor(requestDescriptor)
+//                objectManager.addResponseDescriptor(responseDescriptor)
+//            }
+            
+            for route in model.routeSet {
+                // add the core CRUD responses and routes
+                objectManager.router.routeSet.addRoute(route)
+                let descriptor = RKResponseDescriptor(mapping: model.entityMapping, method: route.method, pathPattern: route.pathPattern, keyPath: keyPath, statusCodes: success)
+                objectManager.addResponseDescriptor(descriptor)
+                
+                // add the index response as well
+                for indexPath in model.indexPathPatterns {
+                    let indexDescriptor = RKResponseDescriptor(mapping: model.entityMapping, method: .GET, pathPattern: indexPath, keyPath: keyPath, statusCodes: success)
+                    objectManager.addResponseDescriptor(indexDescriptor)
+                }
             }
         }
+        
+        //add another response for session control
+        let loginDescriptor = RKResponseDescriptor(mapping: User.entityMapping, method: .Any, pathPattern: User.currentUserPathPattern, keyPath: keyPath, statusCodes: success)
+        objectManager.addResponseDescriptor(loginDescriptor)
+        
+        
 //        let loginMapping = RKObjectMapping(forClass: NSMutableDictionary.self)
 //        loginMapping.addAttributeMappingsFromDictionary(["authentication_token": "authToken"])
 ////        loginMapping.addRelationshipMappingWithSourceKeyPath(nil, mapping: User.entityMapping)
@@ -78,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //add pagination 
         let paginationMapping = RKObjectMapping(forClass: RKPaginator.self)
         paginationMapping.addAttributeMappingsFromDictionary([
-            "pagination.current_page": "currentPage",
+//            "pagination.current_page": "currentPage",
             "pagination.total_pages": "pageCount",
             "pagination.per_page": "perPage",
             "pagination.total_entries": "objectCount"

@@ -12,7 +12,7 @@ import PromiseKit
 
 class User: NSManagedObject, Model {
     
-    static var pathPatterns = ["users", "users/:id", "users/current"]
+//    static var pathPatterns = ["users", "users/:id", "users/current"]
     
     static var entityMapping: RKEntityMapping {
         let mapping = RKEntityMapping(forEntityForName: "User", inManagedObjectStore: RKManagedObjectStore.defaultStore())
@@ -26,45 +26,22 @@ class User: NSManagedObject, Model {
             "updated_at": "updatedAt"
         ])
         mapping.identificationAttributes = ["id"]
-        
-//        let loginMapping = RKObjectMapping(forClass: NSMutableDictionary.self)
-//        loginMapping.addAttributeMappingsFromDictionary(["authentication_token":"authToken"])
-        
-//        mapping.addRelationshipMappingWithSourceKeyPath(<#T##sourceKeyPath: String!##String!#>, mapping: <#T##RKMapping!#>)
-//        mapping.addRelationshipMappingWithSourceKeyPath("authentication_token", mapping: <#T##RKMapping!#>)
-        
-//        let loginMapping = RKObjectMapping(forClass: NSMutableDictionary.self)
-//        loginMapping.addAttributeMappingsFromDictionary(["authentication_token": "authToken"])
-//        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: nil, toKeyPath: "authToken", withMapping: loginMapping))
-//        mapping.addRelationshipMappingWithSourceKeyPath(nil, mapping: User.entityMapping)
-//        let loginResponseDescriptor = RKResponseDescriptor(mapping: loginMapping, method: .Any, pathPattern: "users/current", keyPath: "data", statusCodes: RKStatusCodeIndexSetForClass(.Successful))
-//        objectManager.addResponseDescriptor(loginResponseDescriptor)
-        
         return mapping
     }
     
+    static var routeSet = [
+//        RKRoute(withClass: User.self, pathPattern: "users", method: .GET), //index
+        //        RKRoute(relationshipName: <#T##String!#>, objectClass: <#T##AnyClass!#>, pathPattern: "vehicles/:vin/mileages", method: .GET)
+        RKRoute(withClass: User.self, pathPattern: "users/:id", method: .GET), //show
+        RKRoute(withClass: User.self, pathPattern: "users/:id", method: .PUT), //update
+        RKRoute(withClass: User.self, pathPattern: "users/:id", method: .DELETE), //delete
+        RKRoute(withClass: User.self, pathPattern: "users", method: .POST) //create
+    ]
     
-    //note: authToken is not persisted to database
-//    private var _authToken: String?
-//    var authToken: String? {
-//        get {
-//            willAccessValueForKey("authToken")
-////            let  t = primitiveValueForKey("authToken") as! String?
-//            didAccessValueForKey("authToken")
-//            return _authToken
-//        }
-//        set {
-//            willChangeValueForKey("authToken")
-////            setPrimitiveValue(newValue, forKey: "authToken")
-//            _authToken = newValue
-//            didChangeValueForKey("authToken")
-//        }
-//    }
-    
+    static var indexPathPatterns = ["users"]
 }
 
 extension User {
-    
     @NSManaged var id: NSNumber?
     @NSManaged var email: String?
     // it pains me to no end to persist authTokens in the database.
@@ -78,5 +55,4 @@ extension User {
     @NSManaged var vehicles: NSSet?
     @NSManaged var mileages: NSSet?
     @NSManaged var pulls: NSSet?
-    
 }
