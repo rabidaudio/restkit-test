@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import RestKit
-import PromiseKit
+import CoreData
 
 // Note: All session-related code is in UserSessionExtension.swift
 class UserModel: Model {

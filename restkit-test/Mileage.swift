@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import RestKit
+import CoreData
 
 class MileageModel: Model {
     
@@ -29,8 +29,6 @@ class MileageModel: Model {
 
 class Mileage: NSManagedObject {
     
-    static let model = FixdApi.getModel("Mileage")
-    
     enum Source: String {
         case Unknown = "unknown"
         case UserSubmitted = "user_submitted"
@@ -38,18 +36,18 @@ class Mileage: NSManagedObject {
         case MilesSinceClear = "miles_since_cleared"
     }
     
-//    var source: Source {
-//        get {
-//            if let s = self.source_, let ss = Source(rawValue: s) {
-//                return ss
-//            }else{
-//                return .Unknown
-//            }
-//        }
-//        set {
-//            self.source_ = newValue.rawValue
-//        }
-//    }
+    var sourceEnum: Source {
+        get {
+            if let s = self.source, let ss = Source(rawValue: s) {
+                return ss
+            }else{
+                return .Unknown
+            }
+        }
+        set {
+            self.source = newValue.rawValue
+        }
+    }
 }
 
 extension Mileage {

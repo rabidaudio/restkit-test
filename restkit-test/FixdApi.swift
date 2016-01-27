@@ -16,8 +16,6 @@ class FixdApi {
     
     let url = "http://localhost:3000/api/v2/"
     
-    private let models: [String: Model]
-    
     private init(){
         RKLogConfigureFromEnvironment()
         
@@ -38,13 +36,6 @@ class FixdApi {
         
         //show loading indicator in top bar
         AFNetworkActivityIndicatorManager.sharedManager().enabled = true
-        
-        self.models = [
-            "MakeModelYear": MakeModelYearModel(),
-            "Vehicle": VehicleModel(),
-            "Mileage": MileageModel(),
-            "User": UserModel()
-        ]
     }
     
     static func setUp() {
@@ -58,10 +49,16 @@ class FixdApi {
         objectManager.requestSerializationMIMEType = RKMIMETypeJSON
         
         // configure models
-        models.forEach { key, model in model.addToObjectManager(objectManager) }
+        let models = [
+            MakeModelYearModel(),
+            VehicleModel(),
+            MileageModel(),
+            UserModel()
+        ]
+        models.forEach { model in model.addToObjectManager(objectManager) }
         
         //add another response for session control
-        objectManager.addResponseDescriptor(UserModel.loginResponseDescriptor)
+        objectManager.addResponseDescriptor(CurrentUser.loginResponseDescriptor)
         
         //add another response for errors
         for statusCodeSet in [RKStatusCodeIndexSetForClass(.ClientError), RKStatusCodeIndexSetForClass(.ServerError)] {
@@ -91,16 +88,8 @@ class FixdApi {
         objectManager.addResponseDescriptor(statusResponseDescriptor)
         
         //set current headers
-        objectManager.HTTPClient.setDefaultHeader("X-User-Email", value: UserModel.lastUserEmail)
-        objectManager.HTTPClient.setDefaultHeader("X-User-Token", value: UserModel.lastUserToken)
-    }
-    
-    static func getModel(forClass: NSManagedObject.Type) -> Model {
-        return instance.models[forClass.entityName()]!
-    }
-    
-    static func getModel(forName: String) -> Model {
-        return instance.models[forName]!
+        objectManager.HTTPClient.setDefaultHeader("X-User-Email", value: CurrentUser.lastUserEmail)
+        objectManager.HTTPClient.setDefaultHeader("X-User-Token", value: CurrentUser.lastUserToken)
     }
     
     static func mainQueueContext() -> NSManagedObjectContext {

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A762CD99E75DF8C7610937AF /* Pods_restkit_test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 415AFAF359670F0682390A4E /* Pods_restkit_test.framework */; };
-		CE3185A81C561761005917AF /* UserSessionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3185A71C561761005917AF /* UserSessionExtension.swift */; };
+		CE3185A81C561761005917AF /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3185A71C561761005917AF /* CurrentUser.swift */; };
 		CE35D9091C502C8900C2E1AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE35D9081C502C8900C2E1AB /* AppDelegate.swift */; };
 		CE35D90E1C502C8900C2E1AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE35D90C1C502C8900C2E1AB /* Main.storyboard */; };
 		CE35D9111C502C8900C2E1AB /* restkit_test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE35D90F1C502C8900C2E1AB /* restkit_test.xcdatamodeld */; };
@@ -34,7 +34,7 @@
 /* Begin PBXFileReference section */
 		27EAB7858AC88FBEC4582ED6 /* Pods-restkit-test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-restkit-test.release.xcconfig"; path = "Pods/Target Support Files/Pods-restkit-test/Pods-restkit-test.release.xcconfig"; sourceTree = "<group>"; };
 		415AFAF359670F0682390A4E /* Pods_restkit_test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_restkit_test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE3185A71C561761005917AF /* UserSessionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSessionExtension.swift; sourceTree = "<group>"; };
+		CE3185A71C561761005917AF /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		CE35D9051C502C8900C2E1AB /* restkit-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "restkit-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE35D9081C502C8900C2E1AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE35D90D1C502C8900C2E1AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 		CE6BF0B41C58876800FBDB5E /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				CE3185A71C561761005917AF /* UserSessionExtension.swift */,
+				CE3185A71C561761005917AF /* CurrentUser.swift */,
 				CE6CFE181C549F8300BD5CCC /* ObjectManagerPromiseExtension.swift */,
 				CEEA032A1C54569A0070366A /* FixdError.swift */,
 				CEF55DFE1C5280BA008D9F8A /* Model.swift */,
@@ -291,7 +291,7 @@
 				CEF55E011C52E88F008D9F8A /* LoadingViewController.swift in Sources */,
 				CE6CFE191C549F8300BD5CCC /* ObjectManagerPromiseExtension.swift in Sources */,
 				CEEA032D1C54613F0070366A /* LoginController.swift in Sources */,
-				CE3185A81C561761005917AF /* UserSessionExtension.swift in Sources */,
+				CE3185A81C561761005917AF /* CurrentUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

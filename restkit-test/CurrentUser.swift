@@ -12,7 +12,7 @@ import PromiseKit
 
 
 //extra methods on user for handling sessions
-extension UserModel {
+class CurrentUser {
     
     static let currentUserPathPattern = "users/current"
     
@@ -67,18 +67,24 @@ extension UserModel {
             return Promise(_currentUser)
         }
         return RKObjectManager.sharedManager().getObjectWithPromise(nil, path: currentUserPathPattern, parameters: nil).then { response -> User? in
-            return response.firstResult()
+            return response as! User?
+        }.recover { err -> User? in
+            if FixdError.isUnauthenticated(err){
+                return nil
+            }else{
+                throw err
+            }
         }
     }
     
     static func logout() -> Promise<Void> {
         return (loggedIn ?
-            Promise<Response>(Response(operation: nil, result: nil)) :
+            Promise<AnyObject?>(nil) :
             manager.deleteObjectWithPromise(nil, path: currentUserPathPattern, parameters: nil)
-            ).recover { err -> Response in
+            ).recover { err -> AnyObject? in
                 //we don't care if the network request fails, because we are deleting the auth key anyway.
                 //  shouldn't be a big deal if the session stays open on the server
-                return Response(operation: nil, result: nil)
+                return nil
             }.then { data -> Void in
                 // log out locally
                 lastUserToken = nil
@@ -95,14 +101,14 @@ extension UserModel {
         return logout().then { //make sure logged out first
             manager.postObjectWithPromise(nil, path: currentUserPathPattern, parameters: ["user":["email": email, "password": password]])
             }.then { response -> User in
-                if let user: User = response.firstResult() {
-                    _currentUser = user
-                    lastUserEmail = user.email
-                    lastUserToken = user.authenticationToken
-                    setHeaders(user)
-                    return user
+                guard let user = response as? User else {
+                    throw FixdError.Fuck
                 }
-                throw FixdError.InvalidParseResult(result: response.result)
+                _currentUser = user
+                lastUserEmail = user.email
+                lastUserToken = user.authenticationToken
+                setHeaders(user)
+                return user
         }
     }
     
