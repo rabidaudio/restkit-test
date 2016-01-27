@@ -23,7 +23,11 @@ extension UserModel {
     
     private static var prefs = NSUserDefaults.standardUserDefaults()
     
-    static let loginResponseDescriptor = RKResponseDescriptor(mapping: User.model.entityMapping, method: .Any, pathPattern: currentUserPathPattern, keyPath: User.model.keyPath, statusCodes: RKStatusCodeIndexSetForClass(.Successful))
+    static let loginResponseDescriptor: RKResponseDescriptor = {
+        let userModel = UserModel()
+        let success = RKStatusCodeIndexSetForClass(.Successful)
+        return RKResponseDescriptor(mapping: userModel.entityMapping, method: .Any, pathPattern: currentUserPathPattern, keyPath: userModel.responseKeyPath, statusCodes: success)
+    }()
     
     static var loggedIn: Bool {
         get {
@@ -33,11 +37,9 @@ extension UserModel {
     
     static var lastUserEmail: String? {
         get {
-//            let prefs = NSUserDefaults.standardUserDefaults()
             return prefs.stringForKey("lastUserEmail")
         }
         set {
-//            let prefs = NSUserDefaults.standardUserDefaults()
             prefs.setObject(newValue, forKey: "lastUserEmail")
             prefs.synchronize()
         }
@@ -45,11 +47,9 @@ extension UserModel {
     
     static var lastUserToken: String? {
         get {
-//            let prefs = NSUserDefaults.standardUserDefaults()
             return prefs.stringForKey("lastUserToken")
         }
         set {
-//            let prefs = NSUserDefaults.standardUserDefaults()
             prefs.setObject(newValue, forKey: "lastUserToken")
             prefs.synchronize()
         }
@@ -72,7 +72,6 @@ extension UserModel {
     }
     
     static func logout() -> Promise<Void> {
-//        let manager = RKObjectManager.sharedManager()
         return (loggedIn ?
             Promise<Response>(Response(operation: nil, result: nil)) :
             manager.deleteObjectWithPromise(nil, path: currentUserPathPattern, parameters: nil)
@@ -85,7 +84,7 @@ extension UserModel {
                 lastUserToken = nil
                 setHeaders(nil)
                 if(_currentUser != nil){
-                    _currentUser!.authToken = nil
+                    _currentUser!.authenticationToken = nil
                     defer { _currentUser = nil }
                     try! _currentUser!.managedObjectContext!.save()
                 }
@@ -93,17 +92,13 @@ extension UserModel {
     }
     
     static func login(email: String, password: String) -> Promise<User> {
-//        let manager = RKObjectManager.sharedManager()
         return logout().then { //make sure logged out first
             manager.postObjectWithPromise(nil, path: currentUserPathPattern, parameters: ["user":["email": email, "password": password]])
             }.then { response -> User in
-                print(response, response.result.array())
                 if let user: User = response.firstResult() {
-                    print(user, user.authToken)
-                    assert(user.authToken != nil, "should have set auth token")
                     _currentUser = user
                     lastUserEmail = user.email
-                    lastUserToken = user.authToken
+                    lastUserToken = user.authenticationToken
                     setHeaders(user)
                     return user
                 }
@@ -112,8 +107,7 @@ extension UserModel {
     }
     
     private static func setHeaders(user: User?){
-//        let manager = RKObjectManager.sharedManager()
         manager.HTTPClient.setDefaultHeader("X-User-Email", value: user?.email!)
-        manager.HTTPClient.setDefaultHeader("X-User-Token", value: user?.authToken!)
+        manager.HTTPClient.setDefaultHeader("X-User-Token", value: user?.authenticationToken!)
     }
 }

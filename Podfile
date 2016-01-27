@@ -6,5 +6,6 @@ use_frameworks!
 target 'restkit-test' do
   pod 'RestKit', '~> 0.25.0'
   pod 'PromiseKit', '~> 3.0'
+  pod 'Pluralize.swift', :git => 'https://github.com/sammy-SC/Pluralize.swift.git', :branch => 'master'
 end
 

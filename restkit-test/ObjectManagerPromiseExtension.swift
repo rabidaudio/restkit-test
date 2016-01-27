@@ -15,7 +15,6 @@ import PromiseKit
 //      - A `then` block which doesn't return a promise must explicitly state a return type (so the last one, and maybe others)
 //      - `always` must come before `catch`
 //      - you can optionally use `firstly` before the first promise to make it a little prettier
-
 extension RKObjectManager {
     
     //todo refactor to return only data item using generics
@@ -33,23 +32,10 @@ extension RKObjectManager {
     }
     
     func getAllObjectsForPathPatternWithPromise(path: String!, parameters: [NSObject : AnyObject]!) -> Promise<PagedResponse> {
-//        let requestUrl = HTTPClient.requestWithMethod("GET", path: path, parameters: parameters).URL!
-//        let completeUrl = NSURLComponents(URL: requestUrl, resolvingAgainstBaseURL: false)!
-//        completeUrl.queryItems!.append(NSURLQueryItem(name: "per_page", value: ":perPage"))
-//        completeUrl.queryItems!.append(NSURLQueryItem(name: "page", value: ":currentPage"))
-//        var pathPattern = completeUrl.URL!.absoluteString
-//        pathPattern.removeRange(pathPattern.rangeOfString(baseURL.absoluteString)!)
-        
-//        let requestUrl = HTTPClient.requestWithMethod("GET", path: path, parameters: parameters).URL!
-//        let pathPattern = requestUrl.absoluteString
-//        let paginator = paginatorWithPathPattern(pathPattern)
-        
         let paginator = paginatorWithPathPattern(path+"?per_page=:perPage&page=:currentPage", parameters: parameters)
-//        print(paginator.patternURL) //  /articles?per_page=:perPage&page_number=:currentPage
         return Promise { fulfill, reject in
             var combinedResults: [AnyObject] = []
             paginator.setCompletionBlockWithSuccess({ (paginator, results, page) -> Void in
-                print(paginator, "on page \(paginator.currentPage) of \(paginator.pageCount) for \(paginator.objectCount) objects. has next page? \(paginator.hasNextPage). result page number: \(page)")
                 combinedResults.appendContentsOf(results)
                 if paginator.hasNextPage {
                     paginator.loadNextPage()
@@ -120,13 +106,3 @@ struct PagedResponse {
     let results: [AnyObject]!
     let page: UInt
 }
-//extension RKPaginator {
-//    
-//    func loadPageWithPromise(pageNumber: UInt) -> Promise<PagedResponse> {
-//        let p = Promise { fulfill, reject in
-//            setCompletionBlockWithSuccess({ fulfill(PagedResponse(paginator: $0, results: $1, page: $2)) }, failure: { reject($1) })
-//        }
-//        loadPage(pageNumber)
-//        return p
-//    }
-//}

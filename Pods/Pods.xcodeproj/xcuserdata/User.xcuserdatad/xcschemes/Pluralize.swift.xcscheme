@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '9DF42ED8EA4975EEB782258F'
-               BlueprintName = 'TransitionKit'
+               BlueprintIdentifier = 'E0A6CBC326072FF0D8A3F41E'
+               BlueprintName = 'Pluralize.swift'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'TransitionKit.framework'>
+               BuildableName = 'Pluralize_swift.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

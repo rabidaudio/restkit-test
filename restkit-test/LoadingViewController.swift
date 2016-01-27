@@ -73,7 +73,7 @@ class LoadingViewController: UIViewController {
             m.miles = 300_000
             m.timestamp = NSDate()
             m.user = UserModel.currentUser
-            m.source = .UserSubmitted
+            m.source = Mileage.Source.UserSubmitted.rawValue
             let vehicle = mileages.first!.vehicle
             m.vehicle = vehicle
             print(vehicle, m.vehicle, vehicle!.vin)

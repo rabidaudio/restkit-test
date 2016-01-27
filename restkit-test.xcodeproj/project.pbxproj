@@ -14,6 +14,10 @@
 		CE35D9111C502C8900C2E1AB /* restkit_test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE35D90F1C502C8900C2E1AB /* restkit_test.xcdatamodeld */; };
 		CE35D9131C502C8900C2E1AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE35D9121C502C8900C2E1AB /* Assets.xcassets */; };
 		CE35D9161C502C8900C2E1AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE35D9141C502C8900C2E1AB /* LaunchScreen.storyboard */; };
+		CE6BF0B11C587CE800FBDB5E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6BF0B01C587CE800FBDB5E /* MobileCoreServices.framework */; };
+		CE6BF0B31C587CFC00FBDB5E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6BF0B21C587CFC00FBDB5E /* SystemConfiguration.framework */; };
+		CE6BF0B61C58878500FBDB5E /* FixdApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BF0B51C58878500FBDB5E /* FixdApi.swift */; };
+		CE6BF0B81C5887EB00FBDB5E /* ManagedObjectInitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BF0B71C5887EB00FBDB5E /* ManagedObjectInitExtension.swift */; };
 		CE6CFE191C549F8300BD5CCC /* ObjectManagerPromiseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6CFE181C549F8300BD5CCC /* ObjectManagerPromiseExtension.swift */; };
 		CEEA032B1C54569A0070366A /* FixdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEA032A1C54569A0070366A /* FixdError.swift */; };
 		CEEA032D1C54613F0070366A /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEA032C1C54613F0070366A /* LoginController.swift */; };
@@ -38,6 +42,10 @@
 		CE35D9121C502C8900C2E1AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE35D9151C502C8900C2E1AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE35D9171C502C8900C2E1AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE6BF0B01C587CE800FBDB5E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		CE6BF0B21C587CFC00FBDB5E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		CE6BF0B51C58878500FBDB5E /* FixdApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixdApi.swift; sourceTree = "<group>"; };
+		CE6BF0B71C5887EB00FBDB5E /* ManagedObjectInitExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedObjectInitExtension.swift; sourceTree = "<group>"; };
 		CE6CFE181C549F8300BD5CCC /* ObjectManagerPromiseExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectManagerPromiseExtension.swift; sourceTree = "<group>"; };
 		CEEA032A1C54569A0070366A /* FixdError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixdError.swift; sourceTree = "<group>"; };
 		CEEA032C1C54613F0070366A /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -57,6 +65,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE6BF0B31C587CFC00FBDB5E /* SystemConfiguration.framework in Frameworks */,
+				CE6BF0B11C587CE800FBDB5E /* MobileCoreServices.framework in Frameworks */,
 				A762CD99E75DF8C7610937AF /* Pods_restkit_test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -67,6 +77,8 @@
 		019BEF231E460B24367CF592 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE6BF0B21C587CFC00FBDB5E /* SystemConfiguration.framework */,
+				CE6BF0B01C587CE800FBDB5E /* MobileCoreServices.framework */,
 				415AFAF359670F0682390A4E /* Pods_restkit_test.framework */,
 			);
 			name = Frameworks;
@@ -90,8 +102,6 @@
 				CEF55DED1C528026008D9F8A /* PullEvent.swift */,
 				CEF55DEF1C528026008D9F8A /* Dtc.swift */,
 				CEF55DF11C528026008D9F8A /* User.swift */,
-				CEF55DFE1C5280BA008D9F8A /* Model.swift */,
-				CE3185A71C561761005917AF /* UserSessionExtension.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -117,7 +127,7 @@
 		CE35D9071C502C8900C2E1AB /* restkit-test */ = {
 			isa = PBXGroup;
 			children = (
-				CE31ED971C502E2E00FC863D /* Models */,
+				CE6BF0B41C58876800FBDB5E /* Data */,
 				CE35D9081C502C8900C2E1AB /* AppDelegate.swift */,
 				CE35D90C1C502C8900C2E1AB /* Main.storyboard */,
 				CE35D9121C502C8900C2E1AB /* Assets.xcassets */,
@@ -125,11 +135,23 @@
 				CE35D9171C502C8900C2E1AB /* Info.plist */,
 				CE35D90F1C502C8900C2E1AB /* restkit_test.xcdatamodeld */,
 				CEF55E001C52E88F008D9F8A /* LoadingViewController.swift */,
-				CEEA032A1C54569A0070366A /* FixdError.swift */,
 				CEEA032C1C54613F0070366A /* LoginController.swift */,
-				CE6CFE181C549F8300BD5CCC /* ObjectManagerPromiseExtension.swift */,
 			);
 			path = "restkit-test";
+			sourceTree = "<group>";
+		};
+		CE6BF0B41C58876800FBDB5E /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				CE3185A71C561761005917AF /* UserSessionExtension.swift */,
+				CE6CFE181C549F8300BD5CCC /* ObjectManagerPromiseExtension.swift */,
+				CEEA032A1C54569A0070366A /* FixdError.swift */,
+				CEF55DFE1C5280BA008D9F8A /* Model.swift */,
+				CE31ED971C502E2E00FC863D /* Models */,
+				CE6BF0B51C58878500FBDB5E /* FixdApi.swift */,
+				CE6BF0B71C5887EB00FBDB5E /* ManagedObjectInitExtension.swift */,
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,12 +276,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE6BF0B81C5887EB00FBDB5E /* ManagedObjectInitExtension.swift in Sources */,
 				CEF55DF51C528026008D9F8A /* Vehicle.swift in Sources */,
 				CEF55DFB1C528026008D9F8A /* Dtc.swift in Sources */,
 				CEF55DFD1C528026008D9F8A /* User.swift in Sources */,
 				CE35D9111C502C8900C2E1AB /* restkit_test.xcdatamodeld in Sources */,
 				CEF55DF31C528026008D9F8A /* MakeModelYear.swift in Sources */,
 				CEF55DF71C528026008D9F8A /* Mileage.swift in Sources */,
+				CE6BF0B61C58878500FBDB5E /* FixdApi.swift in Sources */,
 				CEF55DFF1C5280BA008D9F8A /* Model.swift in Sources */,
 				CE35D9091C502C8900C2E1AB /* AppDelegate.swift in Sources */,
 				CEEA032B1C54569A0070366A /* FixdError.swift in Sources */,

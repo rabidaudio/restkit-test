@@ -9,6 +9,7 @@ PODS:
     - OMGHTTPURLRQ/FormURLEncode
     - OMGHTTPURLRQ/UserAgent
   - OMGHTTPURLRQ/UserAgent (3.0.2)
+  - Pluralize.swift (1.1)
   - PromiseKit (3.0.1):
     - PromiseKit/Foundation (= 3.0.1)
     - PromiseKit/QuartzCore (= 3.0.1)
@@ -45,13 +46,26 @@ PODS:
   - TransitionKit (2.1.1)
 
 DEPENDENCIES:
+  - Pluralize.swift (from `https://github.com/sammy-SC/Pluralize.swift.git`, branch
+    `master`)
   - PromiseKit (~> 3.0)
   - RestKit (~> 0.25.0)
+
+EXTERNAL SOURCES:
+  Pluralize.swift:
+    :branch: master
+    :git: https://github.com/sammy-SC/Pluralize.swift.git
+
+CHECKOUT OPTIONS:
+  Pluralize.swift:
+    :commit: f5591709b97edb040e216e8c35468fd22186a86e
+    :git: https://github.com/sammy-SC/Pluralize.swift.git
 
 SPEC CHECKSUMS:
   AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
   ISO8601DateFormatterValueTransformer: 52da467d6ec899d6aedda8e48280ac92e8ee97e6
   OMGHTTPURLRQ: 8376dc887d76a5a7e2a67881dc788f917a2f437c
+  Pluralize.swift: 27c421d7cdbb086f91cf55312e0010d96802d17d
   PromiseKit: 19d12914484a15c25a46f72fde38579204a5dac6
   RestKit: a4fcaf3d4bb2c204679856a46d596160bf208095
   RKValueTransformers: 66ac5e4f077fdbe3496e792d89eeff4c3eb67701

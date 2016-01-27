@@ -11,29 +11,25 @@ import RestKit
 
 class MileageModel: Model {
     
-    private init(){
-        super.init(type: Mileage.self,entityName: "Mileage", resourceName: "mileages", indexPaths: ["mileages", "vehicles/:vin/mileages"], paramMappings: [
+    init(){
+        super.init(type: Mileage.self, resourceName: "mileages", indexPaths: ["mileages", "vehicles/:vin/mileages"], paramMappings: [
             "id": "id",
-            // 'value' conflicts with NSMangedObject
-            "value": "miles",
+            "value": "miles",          // 'value' conflicts with NSMangedObject
             "timestamp": "timestamp",
-            // using field source_ as string field, source as backed by enum
-            "source": "source_",
-            "vehicle_vin": "vin",
+            "source": "source",
+            "vehicle_vin": "vehicleVin",
             "created_at": "createdAt",
             "updated_at": "updatedAt"
             ])
-        
+        self.addIDMapping(VehicleModel(), onKey: "vehicleVin")
+        self.addIncludedMapping(UserModel(), toMany: false)
     }
     
-    override func addRelationships(mapping: RKEntityMapping) {
-        mapping.addConnectionForRelationship("vehicle", connectedBy: ["vin": "vin"])
-    }
 }
 
 class Mileage: NSManagedObject {
     
-    static let model = MileageModel()
+    static let model = FixdApi.getModel("Mileage")
     
     enum Source: String {
         case Unknown = "unknown"
@@ -42,18 +38,18 @@ class Mileage: NSManagedObject {
         case MilesSinceClear = "miles_since_cleared"
     }
     
-    var source: Source {
-        get {
-            if let s = self.source_, let ss = Source(rawValue: s) {
-                return ss
-            }else{
-                return .Unknown
-            }
-        }
-        set {
-            self.source_ = newValue.rawValue
-        }
-    }
+//    var source: Source {
+//        get {
+//            if let s = self.source_, let ss = Source(rawValue: s) {
+//                return ss
+//            }else{
+//                return .Unknown
+//            }
+//        }
+//        set {
+//            self.source_ = newValue.rawValue
+//        }
+//    }
 }
 
 extension Mileage {
@@ -61,7 +57,7 @@ extension Mileage {
     @NSManaged var id: NSNumber?
     @NSManaged var miles: NSNumber?
     @NSManaged var timestamp: NSDate?
-    @NSManaged var source_: String?
+    @NSManaged var source: String?
     @NSManaged var vehicle: Vehicle?
     @NSManaged var user: NSManagedObject?
     

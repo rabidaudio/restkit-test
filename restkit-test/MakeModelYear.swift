@@ -11,23 +11,12 @@ import CoreData
 
 class MakeModelYearModel: Model {
     
-    private init(){
-        super.init(type: MakeModelYear.self, entityName: "MakeModelYear", resourceName: "make_model_years", paramMappings: [
-            "id": "id",
-            "make": "make",
-            "model": "model",
-            "year": "year",
-            "body_type": "bodyType",
-            "edmunds_id": "edmundsId",
-            "created_at": "createdAt",
-            "updated_at": "updatedAt"
-            ])
+    init(){
+        super.init(type: MakeModelYear.self, params: ["id", "make", "model", "year", "bodyType", "edmundsId", "createdAt", "updatedAt"])
     }
 }
 
 class MakeModelYear: NSManagedObject {
-
-    static let model = MakeModelYearModel()
     
 }
 

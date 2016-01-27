@@ -12,24 +12,14 @@ import RestKit
 
 class VehicleModel: Model {
     
-    private init(){
-        super.init(type: Vehicle.self, entityName: "Vehicle", resourceName: "vehicles", idAttributes: ["vin"], paramMappings: [
-            "vin": "vin",
-            "user_submitted": "userSubmitted",
-            "created_at": "createdAt",
-            "updated_at": "updatedAt"
-            ])
-    }
-    
-    override func addRelationships(mapping: RKEntityMapping) {
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "make_model_year", toKeyPath: "makeModelYear", withMapping: MakeModelYear.model.entityMapping))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "users", toKeyPath: "users", withMapping: User.model.entityMapping))
+    init(){
+        super.init(type: Vehicle.self, idAttributes: ["vin"], params: ["vin", "userSubmitted", "createdAt", "updatedAt"])
+        self.addIncludedMapping(MakeModelYearModel(), toMany: false)
+        self.addIncludedMapping(UserModel(), toMany: true)
     }
 }
 
 class Vehicle: NSManagedObject {
-    
-    static let model = VehicleModel()
     
 }
 
