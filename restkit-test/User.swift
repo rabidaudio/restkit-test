@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import RestKit
 
 // Note: All session-related code is in UserSessionExtension.swift
 class UserModel: Model {
@@ -18,6 +19,14 @@ class UserModel: Model {
         //   So instead we clear the User's auth token at log out, so there's only
         //   ever at most one token in the database
         super.init(type: User.self, params: ["id", "email", "authenticationToken", "createdAt", "updatedAt"])
+    }
+    
+    // include login/logout response descriptor
+    override var responseDescriptors: [RKResponseDescriptor] {
+        let loginDescriptor = RKResponseDescriptor(mapping: entityMapping, method: .Any, pathPattern: CurrentUser.pathPattern, keyPath: responseKeyPath, statusCodes: Model.successfulCodes)
+        var descriptors: [RKResponseDescriptor] = [loginDescriptor]
+        descriptors.appendContentsOf(super.responseDescriptors)
+        return descriptors
     }
 }
 

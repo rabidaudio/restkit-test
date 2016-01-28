@@ -18,11 +18,13 @@ class MileageModel: Model {
             "timestamp": "timestamp",
             "source": "source",
             "vehicle_vin": "vehicleVin",
+            "user_id": "userId",
             "created_at": "createdAt",
             "updated_at": "updatedAt"
             ])
         self.addIDMapping(VehicleModel(), onKey: "vehicleVin")
-        self.addIncludedMapping(UserModel(), toMany: false)
+//        self.addIncludedMapping(UserModel(), toMany: false)
+        self.addIDMapping(UserModel(), onKey: "userId")
     }
     
 }

@@ -30,9 +30,11 @@ import PromiseKit
 extension RKObjectManager {
     
     func managedObjectRequestOperationWithRequestAndPromsise(request: NSURLRequest!, managedObjectContext: NSManagedObjectContext!) -> Promise<[AnyObject]?> {
-        return Promise { fulfill, reject in
+        let p = Promise<[AnyObject]?> { fulfill, reject in
             managedObjectRequestOperationWithRequest(request, managedObjectContext: managedObjectContext, success: { fulfill($1.array()) }, failure:  { reject($1) })
         }
+        p.error(FixdError.handleError)
+        return p
     }
     
     func getObjectsAtPathWithPromise(path: String!, parameters: [NSObject : AnyObject]!) -> Promise<[AnyObject]?> {

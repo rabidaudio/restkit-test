@@ -8,6 +8,7 @@
 
 import Foundation
 import RestKit
+import SystemConfiguration
 
 // this is the initializer and container for all the CoreData/RestKit related stuff
 class FixdApi {
@@ -58,7 +59,10 @@ class FixdApi {
         models.forEach { model in model.addToObjectManager(objectManager) }
         
         //add another response for session control
-        objectManager.addResponseDescriptor(CurrentUser.loginResponseDescriptor)
+//        let userModel = UserModel()
+//        let success = RKStatusCodeIndexSetForClass(.Successful)
+//        let loginDescriptor = RKResponseDescriptor(mapping: userModel.entityMapping, method: .Any, pathPattern: CurrentUser.pathPattern, keyPath: userModel.responseKeyPath, statusCodes: success)
+//        objectManager.addResponseDescriptor(loginDescriptor)
         
         //add another response for errors
         for statusCodeSet in [RKStatusCodeIndexSetForClass(.ClientError), RKStatusCodeIndexSetForClass(.ServerError)] {
@@ -86,6 +90,11 @@ class FixdApi {
         statusMapping.addAttributeMappingsFromDictionary(["version":"version", "current_user": "currentUser"])
         let statusResponseDescriptor = RKResponseDescriptor(mapping: statusMapping, method: .GET, pathPattern: "", keyPath: "data", statusCodes: RKStatusCodeIndexSetForClass(.Successful))
         objectManager.addResponseDescriptor(statusResponseDescriptor)
+        
+        // network availability listener
+        // Using the one built in to AFNetworking doesn't work, because AFNetworking expects objc and uses build headers to include the methods and swift refuses to access them.
+        // See: 
+//        objectManager.HTTPClient.setReachabilityStatusChangeBlock {}
         
         //set current headers
         objectManager.HTTPClient.setDefaultHeader("X-User-Email", value: CurrentUser.lastUserEmail)

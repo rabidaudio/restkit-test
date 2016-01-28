@@ -12,9 +12,7 @@ import RestKit
 // define custom errors to throw here
 enum FixdError : ErrorType {
     
-    case InvalidParseResult(result: RKMappingResult)
-    
-    case Fuck
+    case UnexpectedResultType
     
     // shortcut method for getting Fixd API error info from restkit responses
     static func getErrorInfo(error: ErrorType) -> [NSObject: AnyObject]? {
@@ -32,11 +30,13 @@ enum FixdError : ErrorType {
                 print("not logged in!")
             default:
                 // any other error is a problem with the code
-                print("api error detected: \(info["type"]) \(info["id"]) -> \(info["message"])")
+                fatalError("api error detected: \(info["type"]) \(info["id"]) -> \(info["message"])")
+                
             }
         }else{
             // some other (non-API) error
             debugPrint("other error", error)
+            fatalError()
         }
     }
     

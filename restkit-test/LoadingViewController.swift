@@ -17,7 +17,7 @@ class LoadingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if !CurrentUser.loggedIn {
+        if !CurrentUser.isLoggedIn {
             //todo log out performSegueWithIdentifier(<#T##identifier: String##String#>, sender: self)
         }
         
@@ -32,12 +32,12 @@ class LoadingViewController: UIViewController {
     func loadVehicles() {
         let manager = RKObjectManager.sharedManager()
         
-        CurrentUser.fetchCurrentUser().then { user in
-            return manager.getAllObjectsForPathPatternWithPromise("vehicles", parameters: ["user_email": user!.email!])
+        CurrentUser.fetch().then { user in
+            return manager.getAllObjectsForPathPatternWithPromise("vehicles", parameters: ["email": user!.email!])
         }.then { response -> Vehicle? in
             print("done")
             print(response)
-            guard let vehicles = response as? [Vehicle] else { throw FixdError.Fuck }
+            guard let vehicles = response as? [Vehicle] else { throw FixdError.UnexpectedResultType }
             for vehicle in vehicles {
                 print("GOT A VEHICLE", vehicle)
             }
@@ -46,11 +46,11 @@ class LoadingViewController: UIViewController {
             if vehicle != nil {
                 return manager.getAllObjectsForPathPatternWithPromise("mileages", parameters: ["vehicle_vin": vehicle!.vin!])
             }else{
-                throw FixdError.Fuck
+                throw FixdError.UnexpectedResultType
             }
         }.then { response -> Promise<AnyObject?> in
             guard let mileages = response as! [Mileage]? else {
-                throw FixdError.Fuck
+                throw FixdError.UnexpectedResultType
             }
             for mileage in mileages {
                 print("mileage: ", mileage.miles, mileage.vehicle?.vin)
@@ -60,7 +60,7 @@ class LoadingViewController: UIViewController {
             
             m.miles = 300_000
             m.timestamp = NSDate()
-            m.user = CurrentUser.currentUser
+            m.user = CurrentUser.get()
             m.sourceEnum = Mileage.Source.UserSubmitted
             let vehicle = mileages.first!.vehicle
             m.vehicle = vehicle
@@ -68,23 +68,23 @@ class LoadingViewController: UIViewController {
             return manager.postObjectWithPromise(m, path: nil, parameters: ["vehicle_vin": vehicle!.vin!])
         }.then { response -> Promise<AnyObject?> in
             guard let mileage = response as? Mileage else {
-                throw FixdError.Fuck
+                throw FixdError.UnexpectedResultType
             }
             print("Created Mileage!", mileage)
             mileage.miles = 10_000
             return manager.putObjectWithPromise(mileage, path: nil, parameters: nil)
         }.then { response -> Promise<AnyObject?> in
             guard let mileage = response as? Mileage else {
-                throw FixdError.Fuck
+                throw FixdError.UnexpectedResultType
             }
             print("Updated Mileage", mileage.miles)
             
             return manager.deleteObjectWithPromise(mileage, path: nil, parameters: nil)
         }.then { response -> Void in
             guard let mileage = response as? Mileage else {
-                throw FixdError.Fuck
+                throw FixdError.UnexpectedResultType
             }
             print("Deleted!", mileage)
-        }.error(FixdError.handleError)
+        } //.error(FixdError.handleError)
     }
 }

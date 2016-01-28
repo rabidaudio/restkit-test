@@ -21,6 +21,8 @@ import Pluralize_swift
 // descriptors.
 class Model {
     
+    static let successfulCodes = RKStatusCodeIndexSetForClass(.Successful)
+    
     // the object class of the model
     let type: NSManagedObject.Type
     
@@ -95,13 +97,12 @@ class Model {
     
     var responseDescriptors: [RKResponseDescriptor] {
         var descriptors = [RKResponseDescriptor]()
-        let successfulCodes = RKStatusCodeIndexSetForClass(.Successful)
         for route in routeSet {
-            let crudDescriptor = RKResponseDescriptor(mapping: entityMapping, method: route.method, pathPattern: route.pathPattern, keyPath: responseKeyPath, statusCodes: successfulCodes)
+            let crudDescriptor = RKResponseDescriptor(mapping: entityMapping, method: route.method, pathPattern: route.pathPattern, keyPath: responseKeyPath, statusCodes: Model.successfulCodes)
             descriptors.append(crudDescriptor)
         }
         for indexPath in indexPaths {
-            let indexResponseDescriptor = RKResponseDescriptor(mapping: entityMapping, method: .GET, pathPattern: indexPath, keyPath: responseKeyPath, statusCodes: successfulCodes)
+            let indexResponseDescriptor = RKResponseDescriptor(mapping: entityMapping, method: .GET, pathPattern: indexPath, keyPath: responseKeyPath, statusCodes: Model.successfulCodes)
             descriptors.append(indexResponseDescriptor)
         }
         return descriptors

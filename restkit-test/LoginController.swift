@@ -25,17 +25,18 @@ class LoginController: UIViewController {
         
         let manager = RKObjectManager.sharedManager()
 //        let currentUser = User.currentUser
-        if(!CurrentUser.loggedIn){
+        if(!CurrentUser.isLoggedIn){
             showForm(true)
         }else{
             // double check that we are still logged in
             manager.getObjectWithPromise(nil, path: "", parameters: nil).then { data -> Void in
                 self.continueToApp()
             }.error { err -> Void in
-                if let e = FixdError.getErrorInfo(err) {
-                    print("data: ", e)
+                guard FixdError.isUnauthenticated(err) else {
+                    FixdError.handleError(err)
+                    return
                 }
-                self.emailField.text = CurrentUser.lastUserEmail //currentUser!.email // go ahead and fill in their email if we have it
+                self.emailField.text = CurrentUser.lastUserEmail // go ahead and fill in their email if we have it
                 self.showForm(true)
             }
         }
@@ -49,12 +50,10 @@ class LoginController: UIViewController {
     @IBAction func login(sender: AnyObject) {
         let email = emailField.text
         let password = passwordField.text
-        if(email == nil || email!.isEmpty){
-            // todo email?.containsString("@")
-            print("invalid")
-        }else if(password == nil && password!.isEmpty){
-            //todo
-            print("invalid")
+        if(email == nil || email!.isEmpty || !email!.containsString("@")){
+            self.emailField.vibrate()
+        }else if(password == nil || password!.isEmpty){
+            self.passwordField.vibrate()
         }else{
             loginButton.hidden = true
             loadingIndicator.hidden = false
@@ -68,6 +67,8 @@ class LoginController: UIViewController {
             }.error { err in
                 if FixdError.isUnauthenticated(err){
                     // show invalid login
+                    self.loginButton.vibrate()
+                    self.passwordField.text = ""
                 }else{
                     FixdError.handleError(err)
                 }
@@ -86,5 +87,17 @@ class LoginController: UIViewController {
     
     @IBAction func unwindToLogin(unwindSegue: UIStoryboardSegue) {
         CurrentUser.logout()
+    }
+}
+
+extension UIView{
+    func vibrate(){
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.05
+        animation.repeatCount = 5
+        animation.autoreverses = true
+        animation.fromValue = NSValue(CGPoint: CGPointMake(self.center.x - 2.0, self.center.y))
+        animation.toValue = NSValue(CGPoint: CGPointMake(self.center.x + 2.0, self.center.y))
+        self.layer.addAnimation(animation, forKey: "position")
     }
 }

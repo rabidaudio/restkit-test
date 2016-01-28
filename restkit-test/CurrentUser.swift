@@ -14,7 +14,7 @@ import PromiseKit
 //extra methods on user for handling sessions
 class CurrentUser {
     
-    static let currentUserPathPattern = "users/current"
+    static let pathPattern = "users/current"
     
     //hidden cached value of current user object
     private static var _currentUser: User?
@@ -23,13 +23,7 @@ class CurrentUser {
     
     private static var prefs = NSUserDefaults.standardUserDefaults()
     
-    static let loginResponseDescriptor: RKResponseDescriptor = {
-        let userModel = UserModel()
-        let success = RKStatusCodeIndexSetForClass(.Successful)
-        return RKResponseDescriptor(mapping: userModel.entityMapping, method: .Any, pathPattern: currentUserPathPattern, keyPath: userModel.responseKeyPath, statusCodes: success)
-    }()
-    
-    static var loggedIn: Bool {
+    static var isLoggedIn: Bool {
         get {
             return _currentUser == nil
         }
@@ -55,18 +49,15 @@ class CurrentUser {
         }
     }
     
-    
-    static var currentUser: User? {
-        get {
-            return _currentUser
-        }
+    static func get() -> User? {
+        return _currentUser
     }
     
-    static func fetchCurrentUser() -> Promise<User?> {
+    static func fetch() -> Promise<User?> {
         if(_currentUser != nil){
             return Promise(_currentUser)
         }
-        return RKObjectManager.sharedManager().getObjectWithPromise(nil, path: currentUserPathPattern, parameters: nil).then { response -> User? in
+        return RKObjectManager.sharedManager().getObjectWithPromise(nil, path: pathPattern, parameters: nil).then { response -> User? in
             return response as! User?
         }.recover { err -> User? in
             if FixdError.isUnauthenticated(err){
@@ -78,9 +69,7 @@ class CurrentUser {
     }
     
     static func logout() -> Promise<Void> {
-        return (loggedIn ?
-            Promise<AnyObject?>(nil) :
-            manager.deleteObjectWithPromise(nil, path: currentUserPathPattern, parameters: nil)
+        return (isLoggedIn ? Promise<AnyObject?>(nil) : manager.deleteObjectWithPromise(nil, path: pathPattern, parameters: nil)
             ).recover { err -> AnyObject? in
                 //we don't care if the network request fails, because we are deleting the auth key anyway.
                 //  shouldn't be a big deal if the session stays open on the server
@@ -91,7 +80,7 @@ class CurrentUser {
                 setHeaders(nil)
                 if(_currentUser != nil){
                     _currentUser!.authenticationToken = nil
-                    defer { _currentUser = nil }
+                    defer { _currentUser = nil } // clear current user after save (even if save fails and throws)
                     try! _currentUser!.managedObjectContext!.save()
                 }
         }
@@ -99,11 +88,9 @@ class CurrentUser {
     
     static func login(email: String, password: String) -> Promise<User> {
         return logout().then { //make sure logged out first
-            manager.postObjectWithPromise(nil, path: currentUserPathPattern, parameters: ["user":["email": email, "password": password]])
+            manager.postObjectWithPromise(nil, path: pathPattern, parameters: ["user":["email": email, "password": password]])
             }.then { response -> User in
-                guard let user = response as? User else {
-                    throw FixdError.Fuck
-                }
+                let user = response as! User
                 _currentUser = user
                 lastUserEmail = user.email
                 lastUserToken = user.authenticationToken
