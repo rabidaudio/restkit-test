@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'E0A6CBC326072FF0D8A3F41E'
+               BlueprintIdentifier = 'C21DD084EDBE5979EAE8EF1A'
                BlueprintName = 'Pluralize.swift'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pluralize_swift.framework'>

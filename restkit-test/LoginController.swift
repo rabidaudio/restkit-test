@@ -9,6 +9,7 @@
 import UIKit
 import RestKit
 import PromiseKit
+import TMReachability
 
 class LoginController: UIViewController {
     
@@ -20,6 +21,8 @@ class LoginController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        FixdApi.addReachibilityListener(self)
         
         showForm(false)
         
@@ -39,6 +42,17 @@ class LoginController: UIViewController {
                 self.emailField.text = CurrentUser.lastUserEmail // go ahead and fill in their email if we have it
                 self.showForm(true)
             }
+        }
+    }
+    
+    func reachabilityChanged(notification: NSNotification) {
+        guard let reach = notification.object as? TMReachability else {
+            return
+        }
+        if reach.isReachableViaWiFi() || reach.isReachableViaWWAN() {
+            print("Service avalaible!!!")
+        } else {
+            print("No service avalaible!!!")
         }
     }
     

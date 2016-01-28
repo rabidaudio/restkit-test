@@ -33,6 +33,8 @@ enum FixdError : ErrorType {
                 fatalError("api error detected: \(info["type"]) \(info["id"]) -> \(info["message"])")
                 
             }
+        }else if (error as NSError).code == NSURLError.CannotConnectToHost.rawValue {
+            print("server not avialable")
         }else{
             // some other (non-API) error
             debugPrint("other error", error)

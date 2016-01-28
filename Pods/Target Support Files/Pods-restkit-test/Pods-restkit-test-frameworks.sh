@@ -92,6 +92,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-restkit-test/RKValueTransformers.framework"
   install_framework "Pods-restkit-test/RestKit.framework"
   install_framework "Pods-restkit-test/SOCKit.framework"
+  install_framework "Pods-restkit-test/TMReachability.framework"
   install_framework "Pods-restkit-test/TransitionKit.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -103,5 +104,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-restkit-test/RKValueTransformers.framework"
   install_framework "Pods-restkit-test/RestKit.framework"
   install_framework "Pods-restkit-test/SOCKit.framework"
+  install_framework "Pods-restkit-test/TMReachability.framework"
   install_framework "Pods-restkit-test/TransitionKit.framework"
 fi

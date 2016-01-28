@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '8A4EBE9C68E12925D453BDE5'
-               BlueprintName = 'SOCKit'
+               BlueprintIdentifier = '12BC8B8F710808BBAFC69C76'
+               BlueprintName = 'TMReachability'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'SOCKit.framework'>
+               BuildableName = 'TMReachability.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -8,7 +8,7 @@
 
 import Foundation
 import RestKit
-import SystemConfiguration
+import TMReachability
 
 // this is the initializer and container for all the CoreData/RestKit related stuff
 class FixdApi {
@@ -16,6 +16,8 @@ class FixdApi {
     private static let instance = FixdApi()
     
     let url = "http://localhost:3000/api/v2/"
+    
+    private let reach: TMReachability
     
     private init(){
         RKLogConfigureFromEnvironment()
@@ -37,6 +39,9 @@ class FixdApi {
         
         //show loading indicator in top bar
         AFNetworkActivityIndicatorManager.sharedManager().enabled = true
+        
+        reach = TMReachability(hostName: objectManager.baseURL.host)
+        reach.reachableOnWWAN = true
     }
     
     static func setUp() {
@@ -58,12 +63,6 @@ class FixdApi {
         ]
         models.forEach { model in model.addToObjectManager(objectManager) }
         
-        //add another response for session control
-//        let userModel = UserModel()
-//        let success = RKStatusCodeIndexSetForClass(.Successful)
-//        let loginDescriptor = RKResponseDescriptor(mapping: userModel.entityMapping, method: .Any, pathPattern: CurrentUser.pathPattern, keyPath: userModel.responseKeyPath, statusCodes: success)
-//        objectManager.addResponseDescriptor(loginDescriptor)
-        
         //add another response for errors
         for statusCodeSet in [RKStatusCodeIndexSetForClass(.ClientError), RKStatusCodeIndexSetForClass(.ServerError)] {
             let errorMapping = RKObjectMapping(forClass: RKErrorMessage.self)
@@ -74,7 +73,6 @@ class FixdApi {
             let errorDesriptor = RKResponseDescriptor(mapping: errorMapping, method: .Any, pathPattern: nil, keyPath: "error", statusCodes: statusCodeSet)
             objectManager.addResponseDescriptor(errorDesriptor)
         }
-        
         
         //add pagination
         let paginationMapping = RKObjectMapping(forClass: RKPaginator.self)
@@ -93,12 +91,28 @@ class FixdApi {
         
         // network availability listener
         // Using the one built in to AFNetworking doesn't work, because AFNetworking expects objc and uses build headers to include the methods and swift refuses to access them.
-        // See: 
+        // See: https://github.com/AFNetworking/AFNetworking/issues/577, https://github.com/AFNetworking/AFNetworking/issues/614
 //        objectManager.HTTPClient.setReachabilityStatusChangeBlock {}
+        reach.startNotifier()
         
         //set current headers
         objectManager.HTTPClient.setDefaultHeader("X-User-Email", value: CurrentUser.lastUserEmail)
         objectManager.HTTPClient.setDefaultHeader("X-User-Token", value: CurrentUser.lastUserToken)
+    }
+    
+    // have a view listen for reachibility changes
+    static func addReachibilityListener(listener: AnyObject) {
+        // Here we set up a NSNotification observer. The Reachability that caused the notification
+        // is passed in the object parameter
+        NSNotificationCenter.defaultCenter().addObserver(listener, selector: "reachabilityChanged:", name: kReachabilityChangedNotification, object: nil)
+        // then define this:
+//        func reachabilityChanged(notification: NSNotification) {
+//            if self.reach!.isReachableViaWiFi() || self.reach!.isReachableViaWWAN() {
+//                println("Service avalaible!!!")
+//            } else {
+//                println("No service avalaible!!!")
+//            }
+//        }
     }
     
     static func mainQueueContext() -> NSManagedObjectContext {

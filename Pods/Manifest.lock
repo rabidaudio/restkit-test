@@ -43,6 +43,7 @@ PODS:
     - TransitionKit (~> 2.1.0)
   - RKValueTransformers (1.1.2)
   - SOCKit (1.1)
+  - TMReachability (3.2)
   - TransitionKit (2.1.1)
 
 DEPENDENCIES:
@@ -50,16 +51,23 @@ DEPENDENCIES:
     `master`)
   - PromiseKit (~> 3.0)
   - RestKit (~> 0.25.0)
+  - TMReachability (from `https://github.com/albertbori/Reachability`, commit `e34782b386307e386348b481c02c176d58ba45e6`)
 
 EXTERNAL SOURCES:
   Pluralize.swift:
     :branch: master
     :git: https://github.com/sammy-SC/Pluralize.swift.git
+  TMReachability:
+    :commit: e34782b386307e386348b481c02c176d58ba45e6
+    :git: https://github.com/albertbori/Reachability
 
 CHECKOUT OPTIONS:
   Pluralize.swift:
     :commit: f5591709b97edb040e216e8c35468fd22186a86e
     :git: https://github.com/sammy-SC/Pluralize.swift.git
+  TMReachability:
+    :commit: e34782b386307e386348b481c02c176d58ba45e6
+    :git: https://github.com/albertbori/Reachability
 
 SPEC CHECKSUMS:
   AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
@@ -70,6 +78,7 @@ SPEC CHECKSUMS:
   RestKit: a4fcaf3d4bb2c204679856a46d596160bf208095
   RKValueTransformers: 66ac5e4f077fdbe3496e792d89eeff4c3eb67701
   SOCKit: c7376ac262bea9115b8f749358f762522a47d392
+  TMReachability: 48c99d728a8b0ad4493800592484b8cbb65c896c
   TransitionKit: 3a14b6acc7cf2d1dd3e454e24dbad1cfab9a1ef1
 
 COCOAPODS: 0.39.0
